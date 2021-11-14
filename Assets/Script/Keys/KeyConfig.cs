@@ -20,7 +20,7 @@ public class KeyConfig
 
         public void ReadKeys()
         {
-            StreamReader sr = new StreamReader(@"D:\\Unity\\Projects\\Game Start\\Assets\\Dialogue\\KeyConfig.txt", System.Text.Encoding.Default);
+            StreamReader sr = new StreamReader(@"..\\Game-Start\\Assets\\Dialogue\\KeyConfig.txt", System.Text.Encoding.Default);
 
             front = (KeyCode)Convert.ToInt32(sr.ReadLine());
             back = (KeyCode)Convert.ToInt32(sr.ReadLine());

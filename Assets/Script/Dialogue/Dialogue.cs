@@ -12,7 +12,7 @@ public class Dialogue
 
     public void SetContext(string dialogueTXT) {
 
-        StreamReader sr = new StreamReader(@"D:\\Unity\\Projects\\Game Start\\Assets\\Dialogue\\" + dialogueTXT + ".txt", System.Text.Encoding.Default);
+        StreamReader sr = new StreamReader(@"..\\Game-Start\\Assets\\Dialogue\\" + dialogueTXT + ".txt", System.Text.Encoding.Default);
 
         int _nameCount = Convert.ToInt32(sr.ReadLine());
         int _sentenceCount = Convert.ToInt32(sr.ReadLine());

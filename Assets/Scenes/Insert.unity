@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028346, g: 0.22571373, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2590,11 +2590,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 463819718}
   m_CullTransparentMesh: 1
---- !u!4 &488158287 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7867233562184525017, guid: 27194afab86855446a56561d74f26c56, type: 3}
-  m_PrefabInstance: {fileID: 20697812}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &504508958
 GameObject:
   m_ObjectHideFlags: 0
@@ -5505,7 +5500,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1011988229}
-  m_LocalRotation: {x: 0.11778498, y: -0.0005978396, z: 0.00007091013, w: 0.99303895}
+  m_LocalRotation: {x: 0.11778496, y: -0.0008958836, z: 0.00010626132, w: 0.9930387}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -6760,7 +6755,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _controller: {fileID: 1282881532}
   _camera: {fileID: 2047115479}
-  _groundCheck: {fileID: 488158287}
+  _groundCheck: {fileID: 427126411}
   _direction: {x: 0, y: 0}
   turnSmoothTime: 0.12
   walkSpeed: 2.5
@@ -7694,7 +7689,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-1740
+  m_Name: pb_Mesh-32886
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -9181,7 +9176,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1850023060}
-  m_LocalRotation: {x: 0.15010987, y: 0.000033374363, z: -0.0000050672365, w: 0.98866934}
+  m_LocalRotation: {x: 0.15010989, y: 0.000033389264, z: -0.000005069499, w: 0.98866934}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -9834,7 +9829,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2047115476}
-  m_LocalRotation: {x: 0.11778499, y: -0.0005978174, z: 0.00007072318, w: 0.993039}
+  m_LocalRotation: {x: 0.11778498, y: -0.00089588226, z: 0.0001062499, w: 0.9930387}
   m_LocalPosition: {x: 0, y: 3, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
