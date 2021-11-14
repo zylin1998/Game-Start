@@ -1,0 +1,8 @@
+7
+[Linda] {Hi, it's nice to meet you. I' Linda.}
+[Johnson] {It's nice to meet you, Linda. I'm Johnson.}
+[Linda] {How are you doing, Johnson?}
+[Johnson] {I'm fine. Thank you, and you?}
+[Linda] {Me, too.}
+[Johnson] {Cool!}
+[翡翠] {呵呵}
