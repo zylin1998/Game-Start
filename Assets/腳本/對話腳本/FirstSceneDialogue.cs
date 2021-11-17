@@ -9,17 +9,18 @@ public class FirstSceneDialogue : MonoBehaviour
 
     void Start()
     {
+        _dialogueTrigger.GetComponent<DialogueTrigger>()._dialogueTXT = "Dialogue0001";
         _dialogueTrigger.GetComponent<DialogueTrigger>().TriggerDialogue();
     }
 
     private void Update()
     {
-        if (FindObjectOfType<DialogueManager>().GetDialogueMode() == false) { ChangeScene("Insert"); }
+        if (FindObjectOfType<DialogueManager>().GetDialogueMode() == false) { ChangeScene(2); }
     }
 
-    public void ChangeScene(string name)
+    public void ChangeScene(int scene)
     {
-        SceneManager.LoadScene(name);
+        SceneManager.LoadScene(scene);
     }
 
 }

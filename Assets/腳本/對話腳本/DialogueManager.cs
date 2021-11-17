@@ -20,13 +20,15 @@ public class DialogueManager : MonoBehaviour
     
     }
 
-    private string[] _names;
+    private int _isSpeakChara;
+    public List<Dialogue.Chara> _charas;
     private Queue<Sentence> _sentences;
    
     void Awake()
     {
 
         _sentences = new Queue<Sentence>();
+        _charas = new List<Dialogue.Chara>();
         
     }
 
@@ -35,10 +37,13 @@ public class DialogueManager : MonoBehaviour
         _dialogueMode = true;
         _animator.SetBool("IsOpen", true);
 
-        _sentences.Clear(); 
-        
-        _names = dialogue._names;
+        _charas.Clear();
+        _sentences.Clear();
+
+        foreach (Dialogue.Chara chara in dialogue._charas) { _charas.Add(chara); }
         foreach (string sentence in dialogue._sentences) { _sentences.Enqueue(SetSentence(sentence)); }
+
+        FindObjectOfType<DialogueSprite>().SetCharaSprite(_charas);
 
         DisplayNextSentence();
     }
@@ -51,7 +56,11 @@ public class DialogueManager : MonoBehaviour
         }
 
         Sentence sentence = _sentences.Dequeue();
-        _nameText.text = _names[sentence.chara];
+
+        _isSpeakChara = sentence.chara;
+        _nameText.text = _charas[_isSpeakChara].name;
+        FindObjectOfType<DialogueSprite>().DispalySprites(_isSpeakChara);
+
         StopAllCoroutines();
         StartCoroutine(TypeSentence(sentence.dialogue));
     
@@ -77,6 +86,8 @@ public class DialogueManager : MonoBehaviour
     }
 
     public bool GetDialogueMode() { return _dialogueMode; }
+
+    public int GetIsSpeakChara() { return _isSpeakChara - 1; }
 
     private Sentence SetSentence(string sentence)
     {
