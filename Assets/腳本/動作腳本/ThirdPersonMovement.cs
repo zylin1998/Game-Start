@@ -33,16 +33,23 @@ public class ThirdPersonMovement : MonoBehaviour
     }
     void Update()
     {
+        Escape_Check();
         Inventory_Check();
         Cusor_State();
         Ground_Check();
-        if (!FindObjectOfType<DialogueManager>().GetDialogueMode() && !FindObjectOfType<InventoryUI>()._inventoryUI.activeSelf)
-        { 
+        Move_Check();
+        
+
+    }
+
+    private void Move_Check() 
+    {
+        if (!FindObjectOfType<DialogueManager>().GetDialogueMode() && !FindObjectOfType<InventoryUI>()._inventoryUI.activeSelf && !FindObjectOfType<SettingManager>()._isOpened)
+        {
             Move();
             Jump();
             _cusorLockState = true;
         }
-
     }
 
     private void Move()
@@ -122,6 +129,15 @@ public class ThirdPersonMovement : MonoBehaviour
     {
         if (FindObjectOfType<InventoryUI>()._inventoryUI.activeSelf) 
         { 
+            _cusorLockState = false;
+            _anim.SetFloat("Blend", 0f);
+        }
+    }
+
+    private void Escape_Check()
+    {
+        if (FindObjectOfType<SettingManager>()._isOpened)
+        {
             _cusorLockState = false;
             _anim.SetFloat("Blend", 0f);
         }

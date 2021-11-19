@@ -18,7 +18,9 @@ public class Dialogue
 
     public void SetContext(string dialogueTXT) {
 
-        StreamReader sr = new StreamReader(@"..\\Game Start\\Assets\\TextBooks\\" + dialogueTXT + ".txt", System.Text.Encoding.Default);
+        string path = Application.dataPath + "\\TextBanks\\" + dialogueTXT + ".txt";
+
+        StreamReader sr = new StreamReader(path, System.Text.Encoding.Default);
 
         int _nameCount = Convert.ToInt32(sr.ReadLine());
         int _sentenceCount = Convert.ToInt32(sr.ReadLine());

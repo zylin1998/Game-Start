@@ -7,14 +7,7 @@ public class KeyManager : MonoBehaviour
 {
     public KeyConfig _keyConfig;
 
-    public KeyCode _front;
-    public KeyCode _back;
-    public KeyCode _left;
-    public KeyCode _right;
-    public KeyCode _jump;
-    public KeyCode _sprint;
-    public KeyCode _event;
-    public KeyCode _inventory;
+    public KeyConfig.Action[] _actions;
 
     public Text _eventHint;
 
@@ -23,11 +16,12 @@ public class KeyManager : MonoBehaviour
     public bool _sprintState = false;
     public bool _eventState = false;
     public bool _inventoryState = false;
+    public bool _escapeState = false;
 
 
     void Awake()
     {
-        _keyConfig.action.ReadKeys();
+        _keyConfig.ReadKeys();
         SetKeys();
     }
 
@@ -38,62 +32,64 @@ public class KeyManager : MonoBehaviour
         SprintInput();
         EventInput();
         InventoryInput();
+        Escape();
     }
 
     public void SetKeys()
     {
+        _actions = _keyConfig.actions;
+        _eventHint.text = _actions[6].KeyCode.ToString();
+    }
 
-        _front = _keyConfig.action.front;
-        _back = _keyConfig.action.back;
-        _left = _keyConfig.action.left;
-        _right = _keyConfig.action.right;
-        _jump = _keyConfig.action.jump;
-        _sprint = _keyConfig.action.sprint;
-        _event = _keyConfig.action.events;
-        _inventory = _keyConfig.action.inventory;
-
-        _eventHint.text = _event.ToString();
-
+    public void ResetKeys(KeyConfig.Action[] actions) { 
+        _actions = actions;
+        _keyConfig.WriteKeys(_actions);
     }
 
     public void DirectionInput()
     {
 
-        if (Input.GetKeyDown(_front)) { _direction.x++; }
-        if (Input.GetKeyUp(_front)) { _direction.x--; }
+        if (Input.GetKeyDown(_actions[0].KeyCode)) { _direction.x++; }
+        if (Input.GetKeyUp(_actions[0].KeyCode)) { _direction.x--; }
 
-        if (Input.GetKeyDown(_back)) { _direction.x--; }
-        if (Input.GetKeyUp(_back)) { _direction.x++; }
+        if (Input.GetKeyDown(_actions[1].KeyCode)) { _direction.x--; }
+        if (Input.GetKeyUp(_actions[1].KeyCode)) { _direction.x++; }
 
-        if (Input.GetKeyDown(_left)) { _direction.y--; }
-        if (Input.GetKeyUp(_left)) { _direction.y++; }
+        if (Input.GetKeyDown(_actions[2].KeyCode)) { _direction.y--; }
+        if (Input.GetKeyUp(_actions[2].KeyCode)) { _direction.y++; }
 
-        if (Input.GetKeyDown(_right)) { _direction.y++; }
-        if (Input.GetKeyUp(_right)) { _direction.y--; }
+        if (Input.GetKeyDown(_actions[3].KeyCode)) { _direction.y++; }
+        if (Input.GetKeyUp(_actions[3].KeyCode)) { _direction.y--; }
 
     }
 
     public void JumpInput()
     {
-        if (Input.GetKeyDown(_jump)) { _jumpState = true; }
+        if (Input.GetKeyDown(_actions[4].KeyCode)) { _jumpState = true; }
         else { _jumpState = false; }
     }
 
     public void SprintInput()
     {
-        if (Input.GetKey(_sprint)) { _sprintState = true; }
+        if (Input.GetKey(_actions[5].KeyCode)) { _sprintState = true; }
         else { _sprintState = false; }
     }
 
     public void EventInput()
     {
-        if (Input.GetKey(_event)) { _eventState = true; }
+        if (Input.GetKey(_actions[6].KeyCode)) { _eventState = true; }
         else { _eventState = false; }
     }
 
     public void InventoryInput()
     {
-        if (Input.GetKeyDown(_inventory)) { _inventoryState = true; }
+        if (Input.GetKeyDown(_actions[7].KeyCode)) { _inventoryState = true; }
         else { _inventoryState = false; }
+    }
+
+    public void Escape()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape)) { _escapeState = true; }
+        else { _escapeState = false; }
     }
 }

@@ -34,14 +34,24 @@ public class InventoryUI : MonoBehaviour
 
     void UpdateUI()
     {
-        for(int i = 0; i < _ballSlots.Length; i++)
+        foreach(InventorySlot slot in _ballSlots)
         {
-            if(i < _inventory._ballList.Count) { _ballSlots[i].AddItem(_inventory._ballList[i]); }
+            foreach(Item item in _inventory._ballList)
+                if(item._name.Equals(slot._slotFor)) 
+                { 
+                    slot.AddItem(item);
+                    slot.CheckSlot();
+                }
         }
 
-        for (int i = 0; i < _letterSlots.Length; i++)
+        foreach (InventorySlot slot in _letterSlots)
         {
-            if (i < _inventory._letterList.Count) { _letterSlots[i].AddItem(_inventory._letterList[i]); }
+            foreach (Item item in _inventory._letterList)
+                if (item._name.Equals(slot._slotFor))
+                {
+                    slot.AddItem(item);
+                    slot.CheckSlot();
+                }
         }
     }
 
