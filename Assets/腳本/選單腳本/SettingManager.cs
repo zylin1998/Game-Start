@@ -19,7 +19,6 @@ public class SettingManager : MonoBehaviour
 
     private void SetSettingUI()
     {
-
         foreach(GameObject gameObject in _settingUI) 
         {
             if (gameObject.activeSelf) { _isOpened = true; }
@@ -34,14 +33,8 @@ public class SettingManager : MonoBehaviour
 
         else if(FindObjectOfType<KeyManager>()._escapeState && _isOpened)
         {
-            foreach (GameObject gameObject in _settingUI)
-            {
-                gameObject.SetActive(false);
-            }
-
-            _isOpened = false;
+            EndSetting();
         }
-
     }
 
     public void EndSetting() 
