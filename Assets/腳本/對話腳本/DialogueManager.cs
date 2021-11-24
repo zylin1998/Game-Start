@@ -5,43 +5,53 @@ using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
+    [Header("資料導入物件")]
+    public Dialogue _dialogue;
+
+    [Header("文字輸出物件")]
     public Text _nameText;
     public Text _dialogueText;
 
+    [Header("文字瀏覽速度設定")]
+    [Range(0f, 0.10f)]
+    public float _loadTextSpeed = 0f;
+    [Range(0f,5f)]
+    public float _autoSpeed = 5f;
+
+    [Header("對話狀態設定")]
+    public bool _autoMode = false;
+    public bool _skipMode = false;
     public bool _dialogueMode = false;
 
-    public Animator _animator;
-
-    private struct Sentence {
-
-        public int id;
-        public int chara;
-        public string dialogue;    
-    
-    }
-
     private int _isSpeakChara;
-    public List<Dialogue.Chara> _charas;
-    private Queue<Sentence> _sentences;
+    public List<Chara> _charas;
+    public Queue<Sentence> _sentences;
+    public Queue<Sentence> _log;
    
     void Awake()
     {
-
         _sentences = new Queue<Sentence>();
-        _charas = new List<Dialogue.Chara>();
-        
+        _log = new Queue<Sentence>();
     }
 
-    public void StartDialogue(Dialogue dialogue) {
+    public void StartDialogue(string ID) {
+
+        _dialogue = (Dialogue)Resources.Load(System.IO.Path.Combine("對話資料", "Dialogue" + ID), typeof(Dialogue));
 
         _dialogueMode = true;
-        _animator.SetBool("IsOpen", true);
+        FindObjectOfType<DialogueBoxController>().DialogueState(true);
 
         _charas.Clear();
         _sentences.Clear();
+        _log.Clear();
 
-        foreach (Dialogue.Chara chara in dialogue._charas) { _charas.Add(chara); }
-        foreach (string sentence in dialogue._sentences) { _sentences.Enqueue(SetSentence(sentence)); }
+        Chara temp = new Chara();
+        temp.name = "";
+        temp.posiX = 0;
+        _charas.Add(temp);
+
+        foreach (Chara chara in _dialogue.charas) { _charas.Add(chara); }
+        foreach (Sentence sentence in _dialogue.sentences) { _sentences.Enqueue(sentence); }
 
         FindObjectOfType<DialogueSprite>().SetCharaSprite(_charas);
 
@@ -61,72 +71,69 @@ public class DialogueManager : MonoBehaviour
         _nameText.text = _charas[_isSpeakChara].name;
         FindObjectOfType<DialogueSprite>().DispalySprites(_isSpeakChara);
 
-        StopAllCoroutines();
-        StartCoroutine(TypeSentence(sentence.dialogue));
+        if (_skipMode) { SkipModeTypeSentence(sentence.dialogue); }
+
+        else if (!_skipMode)
+        {
+            StopAllCoroutines();
+            StartCoroutine(TypeSentence(sentence.dialogue));
+        }
+
+        //if (_autoMode && !_skipMode) { Invoke("DisplayNextSentence", _autoSpeed); }
     
     }
 
-    IEnumerator TypeSentence(string sentence) {
-
+    private void SkipModeTypeSentence(string sentence) 
+    {
         _dialogueText.text = "";
-        for(int i = 0; i < sentence.ToCharArray().Length; i++){
+        _dialogueText.text += sentence;
 
+        Invoke("DisplayNextSentence", 0.2f);
+    }
+
+    private IEnumerator TypeSentence(string sentence) 
+    {
+        _dialogueText.text = "";
+        for(int i = 0; i < sentence.ToCharArray().Length; i++)
+        {
             _dialogueText.text += sentence.ToCharArray()[i];
-            yield return null;
-
+            yield return new WaitForSeconds(_loadTextSpeed);
         }
-    
+
+        if (_autoMode && !_skipMode) { Invoke("DisplayNextSentence", _autoSpeed); }
+    }
+
+    public void Auto() 
+    {
+        if (_autoMode) { _autoMode = false; }
+
+        else 
+        {
+            _autoMode = true;
+            DisplayNextSentence();
+        }
+    }
+
+    public void Skip() 
+    {
+        if (_skipMode) { _skipMode = false; }
+
+        else
+        {
+            _skipMode = true;
+            DisplayNextSentence();
+        }
     }
 
     public void EndDialogue() {
 
         _dialogueMode = false;
-        _animator.SetBool("IsOpen", false);
+        FindObjectOfType<DialogueBoxController>().DialogueState(false);
 
     }
 
     public bool GetDialogueMode() { return _dialogueMode; }
 
     public int GetIsSpeakChara() { return _isSpeakChara - 1; }
-
-    private Sentence SetSentence(string sentence)
-    {
-        Sentence temp;
-
-        string Id = "";
-        string Name = "";
-        string Dialogue = "";
-
-        bool idCheck = false;
-        bool nameCheck = false;
-        bool dialogueCheck = false;
-
-        foreach (char word in sentence)
-        {
-            if (word == '<') { idCheck = true; }
-
-            else if (word == '>') { idCheck = false; }
-
-            else if (word == '[') { nameCheck = true; }
-
-            else if (word == ']') { nameCheck = false; }
-
-            else if (word == '{') { dialogueCheck = true; }
-
-            else if (word == '}') { dialogueCheck = false; }
-
-            else if (idCheck) { Id += word; }
-
-            else if (nameCheck) { Name += word; }
-
-            else if (dialogueCheck) { Dialogue += word; }
-        }
-
-        temp.id = System.Convert.ToInt32(Id);
-        temp.chara = System.Convert.ToInt32(Name);
-        temp.dialogue = Dialogue;
-
-        return temp;
-    }
 
 }

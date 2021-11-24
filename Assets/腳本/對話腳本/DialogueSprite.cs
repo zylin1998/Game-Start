@@ -13,20 +13,22 @@ public class DialogueSprite : MonoBehaviour
         _inputCharaSprites = _spriteParent.GetComponentsInChildren<CharaSprite>();
     }
 
-    public void SetCharaSprite(List<Dialogue.Chara> charas) {
+    public void SetCharaSprite(List<Chara> charas) {
 
         _outputCharaSprites = new CharaSprite[charas.Count - 1];
 
         int count = 0;
-        foreach (Dialogue.Chara chara in charas) 
+        foreach (Chara chara in charas) 
         {
             if (chara.name.Equals("")) { continue; }
 
             foreach(CharaSprite charaSprite in _inputCharaSprites)
             {
                 if (charaSprite.name.Equals(chara.name)) {
+                    Debug.Log(chara.name + " " + chara.posiX + " " + charaSprite.name);
                     _outputCharaSprites[count] = charaSprite;
                     _outputCharaSprites[count].Move(chara.posiX);
+                    Debug.Log(_outputCharaSprites[count].name);
                     count++;
                 }
             }

@@ -1,9 +1,10 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharaSprite : MonoBehaviour
 {
     public RectTransform _transform;
-    public SpriteRenderer _spriteRenderer;
+    public Image _spriteRenderer;
     public string name;
     public bool _isSpeak;
 
@@ -11,7 +12,8 @@ public class CharaSprite : MonoBehaviour
 
     public void NonSpeak() { _spriteRenderer.color = Color.gray; }
 
-    public void Move(int posiX) {
+    public void Move(int posiX) 
+    {
         _transform.localPosition = new Vector3(posiX , _transform.localPosition.y, 0f);
     }
 }

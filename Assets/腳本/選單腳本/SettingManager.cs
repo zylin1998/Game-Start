@@ -45,7 +45,9 @@ public class SettingManager : MonoBehaviour
         }
         _backGround.enabled = true;
 
-        _isOpened = false; 
+        _isOpened = false;
+
+        FindObjectOfType<KeyManager>()._actionsPause = false;
     }
 
 }

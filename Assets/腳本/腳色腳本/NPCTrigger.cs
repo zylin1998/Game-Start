@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class NPCTrigger : MonoBehaviour
 {
     public DialogueTrigger _dialogueTrigger;
-    public string _dialogueTXT;
+    public string _dialogueID;
     public GameObject _hint;
     public Text _text;
 
@@ -20,7 +20,7 @@ public class NPCTrigger : MonoBehaviour
 
         if (FindObjectOfType<KeyManager>()._eventState){
 
-            _dialogueTrigger._dialogueTXT = _dialogueTXT;
+            _dialogueTrigger._dialogueID = _dialogueID;
             _dialogueTrigger.TriggerDialogue();
             _hint.SetActive(false);
 

@@ -1,31 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class KeyManager : MonoBehaviour
 {
-    public KeyConfig _keyConfig;
-
-    public KeyConfig.Action[] _actions;
-
-    public Text _eventHint;
-
-    public Vector2 _direction = new Vector2(0, 0);
+    [Header("按鍵資料引入")]
+    public KeyConfig _actions;
+    [Header("方向")]
+    public Vector2Int _direction = new Vector2Int(0, 0);
+    [Header("按鍵狀態")]
     public bool _jumpState = false;
     public bool _sprintState = false;
     public bool _eventState = false;
     public bool _inventoryState = false;
+    [Header("跳脫狀態")]
     public bool _escapeState = false;
+    public bool _actionsPause = false;
 
-
-    void Awake()
+    private void Start()
     {
-        _keyConfig.ReadKeys();
-        SetKeys();
+        if (_actions == null) { _actions = (KeyConfig)Resources.Load(System.IO.Path.Combine("設定檔","keys"), typeof(KeyConfig)); }
     }
 
-    void Update()
+    public void Update()
     {
         DirectionInput();
         JumpInput();
@@ -35,61 +30,61 @@ public class KeyManager : MonoBehaviour
         Escape();
     }
 
-    public void SetKeys()
+    public void ResetKeys(Actions[] actions)
     {
-        _actions = _keyConfig.actions;
-        _eventHint.text = _actions[6].KeyCode.ToString();
+        _actions._actions = actions;
     }
 
-    public void ResetKeys(KeyConfig.Action[] actions) { 
-        _actions = actions;
-        _keyConfig.WriteKeys(_actions);
+    private void DirectionInput()
+    {
+        if (!_actionsPause)
+        {
+            if (Input.GetKeyDown(_actions._actions[0].KeyCode)) { _direction.x++; }
+            if (Input.GetKeyUp(_actions._actions[0].KeyCode)) { _direction.x--; }
+
+            if (Input.GetKeyDown(_actions._actions[1].KeyCode)) { _direction.x--; }
+            if (Input.GetKeyUp(_actions._actions[1].KeyCode)) { _direction.x++; }
+
+            if (Input.GetKeyDown(_actions._actions[2].KeyCode)) { _direction.y--; }
+            if (Input.GetKeyUp(_actions._actions[2].KeyCode)) { _direction.y++; }
+
+            if (Input.GetKeyDown(_actions._actions[3].KeyCode)) { _direction.y++; }
+            if (Input.GetKeyUp(_actions._actions[3].KeyCode)) { _direction.y--; }
+        }
     }
 
-    public void DirectionInput()
+    private void JumpInput()
     {
-
-        if (Input.GetKeyDown(_actions[0].KeyCode)) { _direction.x++; }
-        if (Input.GetKeyUp(_actions[0].KeyCode)) { _direction.x--; }
-
-        if (Input.GetKeyDown(_actions[1].KeyCode)) { _direction.x--; }
-        if (Input.GetKeyUp(_actions[1].KeyCode)) { _direction.x++; }
-
-        if (Input.GetKeyDown(_actions[2].KeyCode)) { _direction.y--; }
-        if (Input.GetKeyUp(_actions[2].KeyCode)) { _direction.y++; }
-
-        if (Input.GetKeyDown(_actions[3].KeyCode)) { _direction.y++; }
-        if (Input.GetKeyUp(_actions[3].KeyCode)) { _direction.y--; }
-
-    }
-
-    public void JumpInput()
-    {
-        if (Input.GetKeyDown(_actions[4].KeyCode)) { _jumpState = true; }
+        if (Input.GetKeyDown(_actions._actions[4].KeyCode)) { _jumpState = true; }
         else { _jumpState = false; }
     }
 
-    public void SprintInput()
+    private void SprintInput()
     {
-        if (Input.GetKey(_actions[5].KeyCode)) { _sprintState = true; }
+        if (Input.GetKey(_actions._actions[5].KeyCode)) { _sprintState = true; }
         else { _sprintState = false; }
     }
 
-    public void EventInput()
+    private void EventInput()
     {
-        if (Input.GetKey(_actions[6].KeyCode)) { _eventState = true; }
+        if (Input.GetKey(_actions._actions[6].KeyCode)) { _eventState = true; }
         else { _eventState = false; }
     }
 
-    public void InventoryInput()
+    private void InventoryInput()
     {
-        if (Input.GetKeyDown(_actions[7].KeyCode)) { _inventoryState = true; }
+        if (Input.GetKeyDown(_actions._actions[7].KeyCode)) { _inventoryState = true; }
         else { _inventoryState = false; }
     }
 
-    public void Escape()
+    private void Escape()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) { _escapeState = true; }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            _escapeState = true;
+            _actionsPause = !_actionsPause;
+        }
         else { _escapeState = false; }
     }
+
 }

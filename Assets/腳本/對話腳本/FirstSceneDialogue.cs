@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
@@ -9,18 +7,19 @@ public class FirstSceneDialogue : MonoBehaviour
 
     void Start()
     {
-        _dialogueTrigger.GetComponent<DialogueTrigger>()._dialogueTXT = "Dialogue0001";
+        _dialogueTrigger.GetComponent<DialogueTrigger>()._dialogueID = "0001";
+        new WaitForSeconds(3f);
         _dialogueTrigger.GetComponent<DialogueTrigger>().TriggerDialogue();
     }
 
     private void Update()
     {
-        if (FindObjectOfType<DialogueManager>().GetDialogueMode() == false) { ChangeScene(2); }
+        if (FindObjectOfType<DialogueManager>().GetDialogueMode() == false) { Invoke("ChangeScene", 1f); }
     }
 
-    public void ChangeScene(int scene)
+    public void ChangeScene()
     {
-        SceneManager.LoadScene(scene);
+        SceneManager.LoadScene("開始任務");
     }
 
 }
