@@ -86,7 +86,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BathroomDoorOpenLeft 0
+  m_Name: "\u6D74\u5BA4\u9580(\u5DE6)\u95DC"
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -138,7 +138,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BathroomDoorOpenLeft
+  m_Name: "\u6D74\u5BA4\u9580(\u5DE6)\u958B"
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:

@@ -2078,15 +2078,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d27e7a2dc5d159844a4b64c464adde6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _keyConfig:
-    _actionCount: 0
-  _eventHint: {fileID: 1769636946}
+  _actions: {fileID: 0}
   _direction: {x: 0, y: 0}
   _jumpState: 0
   _sprintState: 0
   _eventState: 0
   _inventoryState: 0
   _escapeState: 0
+  _actionsPause: 0
 --- !u!114 &461664434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2100,6 +2099,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _keyParent: {fileID: 1366994250}
+  _actions: []
   _waitKey: 0
   _isChanged: 0
   _newKeyCode: 0
@@ -2873,6 +2873,7 @@ Transform:
   - {fileID: 461664432}
   - {fileID: 712647732}
   - {fileID: 921774310}
+  - {fileID: 2084898987}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3123,6 +3124,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buttons: {fileID: 388808086}
+  _targetScene: {fileID: 0}
+  _loadScenes: {fileID: 2084898988}
 --- !u!4 &712647732
 Transform:
   m_ObjectHideFlags: 0
@@ -13247,6 +13250,51 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &2084898986
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2084898987}
+  - component: {fileID: 2084898988}
+  m_Layer: 0
+  m_Name: "\u904E\u5834\u7BA1\u7406"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2084898987
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2084898986}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 626860888}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2084898988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2084898986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f137dd26bf2f414a8207ddc0f1bce8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetScene: {fileID: 0}
+  Progress: 0
 --- !u!1 &2092317654
 GameObject:
   m_ObjectHideFlags: 0

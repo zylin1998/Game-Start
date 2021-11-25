@@ -5,20 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class StartMenuManager : MonoBehaviour
 {
+    [Header("鎖定對象物件")]
     public GameObject _buttons;
-
-    private string _crossScene = "過場畫面";
-    private AsyncOperation _asyncload;
+    [Header("過場目標")]
+    public LoadScenes _loadScenes;
 
     private void Start()
     {
         ButtonStates(false);
-        StartCoroutine(LoadYourAsyncScene(_crossScene));
+        _loadScenes.LoadNewScene("過場畫面");
     }
 
     private void Update()
     {
-        if(_asyncload.progress >= 0.9f) { ButtonStates(true); }
+        if(_loadScenes.Progress >= 100f) { ButtonStates(true); }
     }
 
     public void StartButton(float delay) 
@@ -43,7 +43,8 @@ public class StartMenuManager : MonoBehaviour
 
     public void DelayStartGame()
     {
-        _asyncload.allowSceneActivation = true;
+        _loadScenes._targetScene._sceneName = "開頭";
+        _loadScenes._asyncload.allowSceneActivation = true;
     }
 
     public void DelayQuitButton() 
@@ -54,17 +55,5 @@ public class StartMenuManager : MonoBehaviour
     private void ButtonStates(bool active) 
     {
         _buttons.SetActive(active);
-    }
-
-    private IEnumerator LoadYourAsyncScene(string scene)
-    {
-        _asyncload = SceneManager.LoadSceneAsync(scene);
-        _asyncload.allowSceneActivation = false;
-
-        while (!_asyncload.isDone)
-        {
-            //Debug.Log("Loading progress: " + (_asyncload.progress * 100) + "%");
-            yield return null;
-        }
     }
 }

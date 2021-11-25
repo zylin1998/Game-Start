@@ -133,8 +133,9 @@ GameObject:
   m_Component:
   - component: {fileID: 59925580}
   - component: {fileID: 59925579}
+  - component: {fileID: 59925581}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: "\u7CFB\u7D71"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -152,8 +153,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b2c65ae01c1359439091a72a32ceac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _loading: {fileID: 1078890386}
-  _sceneIndex: 
+  _loadScenes: {fileID: 59925581}
+  _targetScene: {fileID: 0}
+  Progress: 0
+  _text: {fileID: 1078890386}
 --- !u!4 &59925580
 Transform:
   m_ObjectHideFlags: 0
@@ -168,6 +171,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &59925581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 59925578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f137dd26bf2f414a8207ddc0f1bce8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetScene: {fileID: 0}
+  Progress: 0
 --- !u!1 &805430893
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,7 +197,7 @@ GameObject:
   - component: {fileID: 805430896}
   - component: {fileID: 805430895}
   m_Layer: 5
-  m_Name: Image
+  m_Name: "\u5E95\u8272"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -339,7 +356,7 @@ GameObject:
   - component: {fileID: 1078890387}
   - component: {fileID: 1078890386}
   m_Layer: 5
-  m_Name: Text
+  m_Name: "\u5167\u6587"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -377,7 +394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.9528302, g: 0.9033909, b: 0.9033909, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -485,7 +502,7 @@ GameObject:
   - component: {fileID: 1769877909}
   - component: {fileID: 1769877908}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: "\u756B\u5E03"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -3,10 +3,26 @@ using UnityEngine.UI;
 
 public class DialogueMenu : MonoBehaviour
 {
+    [Header("對話狀態")]
     public bool _autoState = false;
     public bool _skipState = false;
+    [Header("選單狀態")]
+    public bool _menuState = false;
+    public Animator _animator;
+    public GameObject _backGroundImage;
 
-    public void MenuButton() { Debug.Log("Menu is out."); }
+    private void Start()
+    {
+        _animator.GetComponent<Animator>();
+    }
+
+    public void MenuButton() 
+    { 
+        Debug.Log("Menu is out.");
+        _menuState = !_menuState;
+        _animator.SetBool("isOpen", _menuState);
+        _backGroundImage.SetActive(_menuState);
+    }
 
     public void AutoButton() 
     {
