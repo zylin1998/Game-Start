@@ -16,7 +16,11 @@ public class CrossScene : MonoBehaviour
 
     private void Update()
     {
-        _text.text = "Is Loading......\n" + _loadScenes.Progress;
-        if(_loadScenes.Progress >= 100) { _loadScenes._asyncload.allowSceneActivation = true; }
+        _text.text = "Is Loading......" + _loadScenes.Progress + "%";
+        if(_loadScenes.Progress >= 100) 
+        {
+            //_loadScenes.UnLoadScenes("過場畫面");
+            _loadScenes._asyncload.allowSceneActivation = true;
+        }
     }
 }

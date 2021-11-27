@@ -15,11 +15,6 @@ public class KeyManager : MonoBehaviour
     public bool _escapeState = false;
     public bool _actionsPause = false;
 
-    private void Start()
-    {
-        if (_actions == null) { _actions = (KeyConfig)Resources.Load(System.IO.Path.Combine("≥]©w¿…","keys"), typeof(KeyConfig)); }
-    }
-
     public void Update()
     {
         DirectionInput();

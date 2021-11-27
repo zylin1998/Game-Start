@@ -18,7 +18,6 @@ public class DialogueMenu : MonoBehaviour
 
     public void MenuButton() 
     { 
-        Debug.Log("Menu is out.");
         _menuState = !_menuState;
         _animator.SetBool("isOpen", _menuState);
         _backGroundImage.SetActive(_menuState);

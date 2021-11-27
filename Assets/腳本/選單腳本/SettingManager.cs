@@ -1,16 +1,9 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class SettingManager : MonoBehaviour
 {
-    public GameObject[] _settingUI;
-    public Button _backGround; 
-    public bool _isOpened;
-
-    void Start()
-    {
-        foreach(GameObject gameObject in _settingUI) { gameObject.GetComponent<GameObject>(); }
-    }
+    public GameObject _settingUI;
+    public bool _isOpened = false;
 
     void Update()
     {
@@ -19,32 +12,21 @@ public class SettingManager : MonoBehaviour
 
     private void SetSettingUI()
     {
-        foreach(GameObject gameObject in _settingUI) 
+        if (FindObjectOfType<KeyManager>()._escapeState && !_isOpened) 
         {
-            if (gameObject.activeSelf) { _isOpened = true; }
-        }
-
-        if(FindObjectOfType<KeyManager>()._escapeState && !_isOpened) 
-        {
-            _settingUI[0].SetActive(true);
-            _settingUI[1].SetActive(true);
-            _backGround.enabled = false;
+            _isOpened = true;
         }
 
         else if(FindObjectOfType<KeyManager>()._escapeState && _isOpened)
         {
             EndSetting();
         }
+
+        _settingUI.SetActive(_isOpened);
     }
 
     public void EndSetting() 
     {
-        foreach (GameObject gameObject in _settingUI)
-        {
-            gameObject.SetActive(false);
-        }
-        _backGround.enabled = true;
-
         _isOpened = false;
 
         FindObjectOfType<KeyManager>()._actionsPause = false;

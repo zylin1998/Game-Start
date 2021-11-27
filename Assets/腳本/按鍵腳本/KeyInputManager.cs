@@ -5,7 +5,7 @@ public class KeyInputManager : MonoBehaviour
 {
     [Header("輸入按鈕欄位及動作輸入")]
     public Transform _keyParent;
-    public Actions[] _actions;
+    public KeyConfig _actions;
     [Header("等待輸入及是否變動")]
     public bool _waitKey = false;
     public bool _isChanged = false;
@@ -17,7 +17,6 @@ public class KeyInputManager : MonoBehaviour
     void Start()
     {
         _inputFeilds = _keyParent.GetComponentsInChildren<KeyInputFeild>();
-        _actions = FindObjectOfType<KeyManager>()._actions._actions;
         KeyInitialize();
     }
 
@@ -61,7 +60,7 @@ public class KeyInputManager : MonoBehaviour
 
     public void SaveChanged() 
     {
-        if (_isChanged) { FindObjectOfType<KeyManager>().ResetKeys(_actions); }
+        if (_isChanged) { FindObjectOfType<KeyManager>().ResetKeys(_actions._actions); }
 
         _isChanged = false;
     }
@@ -70,7 +69,7 @@ public class KeyInputManager : MonoBehaviour
     {
         foreach (KeyInputFeild keyInputFeild in _inputFeilds)
         {
-            foreach (Actions action in _actions) 
+            foreach (Actions action in _actions._actions) 
             {
                 if (keyInputFeild._keyName.Equals(action.KeyName)) 
                 {
@@ -88,15 +87,15 @@ public class KeyInputManager : MonoBehaviour
         bool keyChange = false; 
         bool keySame = false;
 
-        for (int i = 0; i < _actions.Length; i++)
+        for (int i = 0; i < _actions._actions.Length; i++)
         {
-            if(keyNmame.Equals(_actions[i].KeyName) && _newKeyCode != _actions[i].KeyCode) 
+            if(keyNmame.Equals(_actions._actions[i].KeyName) && _newKeyCode != _actions._actions[i].KeyCode) 
             { 
                 keyChange = true;
                 differ = i;
             }
 
-            if(!keyNmame.Equals(_actions[i].KeyName) && _newKeyCode == _actions[i].KeyCode) 
+            if(!keyNmame.Equals(_actions._actions[i].KeyName) && _newKeyCode == _actions._actions[i].KeyCode) 
             { 
                 keySame = true;
                 same = i;
@@ -109,7 +108,7 @@ public class KeyInputManager : MonoBehaviour
         {
             _isChanged = true;
 
-            _actions[differ].KeyCode = _newKeyCode;
+            _actions._actions[differ].KeyCode = _newKeyCode;
 
             _inputFeilds[differ]._keyText.text = _newKeyCode.ToString();
             _inputFeilds[differ]._nowKeyCode = _newKeyCode;
@@ -119,15 +118,15 @@ public class KeyInputManager : MonoBehaviour
         {
             _isChanged = true;
 
-             KeyCode temp = _actions[differ].KeyCode;
-            _actions[differ].KeyCode = _actions[same].KeyCode;
-            _actions[same].KeyCode = temp;
+             KeyCode temp = _actions._actions[differ].KeyCode;
+            _actions._actions[differ].KeyCode = _actions._actions[same].KeyCode;
+            _actions._actions[same].KeyCode = temp;
 
-             _inputFeilds[differ]._keyText.text = _actions[differ].KeyCode.ToString();
-            _inputFeilds[differ]._nowKeyCode = _actions[differ].KeyCode;
+             _inputFeilds[differ]._keyText.text = _actions._actions[differ].KeyCode.ToString();
+            _inputFeilds[differ]._nowKeyCode = _actions._actions[differ].KeyCode;
 
-            _inputFeilds[same]._keyText.text = _actions[same].KeyCode.ToString();
-            _inputFeilds[same]._nowKeyCode = _actions[same].KeyCode;
+            _inputFeilds[same]._keyText.text = _actions._actions[same].KeyCode.ToString();
+            _inputFeilds[same]._nowKeyCode = _actions._actions[same].KeyCode;
         }
 
         foreach (KeyInputFeild feild in _inputFeilds) { feild._keyInput.enabled = true; }

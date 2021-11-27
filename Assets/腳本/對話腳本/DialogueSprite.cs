@@ -24,11 +24,10 @@ public class DialogueSprite : MonoBehaviour
 
             foreach(CharaSprite charaSprite in _inputCharaSprites)
             {
-                if (charaSprite.name.Equals(chara.name)) {
-                    Debug.Log(chara.name + " " + chara.posiX + " " + charaSprite.name);
+                if (charaSprite.name.Equals(chara.name)) 
+                {   
                     _outputCharaSprites[count] = charaSprite;
                     _outputCharaSprites[count].Move(chara.posiX);
-                    Debug.Log(_outputCharaSprites[count].name);
                     count++;
                 }
             }

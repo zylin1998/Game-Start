@@ -1,39 +1,32 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class StartMenuManager : MonoBehaviour
 {
-    [Header("鎖定對象物件")]
-    public GameObject _buttons;
     [Header("過場目標")]
     public LoadScenes _loadScenes;
+    [Header("設定介面")]
+    public GameObject _settingPage;
+    public Animator _settingAnimator;
 
     private void Start()
     {
-        ButtonStates(false);
-        _loadScenes.LoadNewScene("過場畫面");
-    }
-
-    private void Update()
-    {
-        if(_loadScenes.Progress >= 100f) { ButtonStates(true); }
+        _settingAnimator.GetComponent<Animator>();
     }
 
     public void StartButton(float delay) 
     {
-        Invoke("DelayStartGame", delay);
+        Invoke("DelayStartButton", delay);
     }
 
     public void SettingButton()
-    { 
-        //Not using.
+    {
+        _settingPage.SetActive(true);
+        _settingAnimator.SetBool("isOpen", true);
     }
 
-    public void GalleryButton() 
+    public void GalleryButton(float delay) 
     {
-        Debug.Log("Gallery is not ready yet.");
+        Invoke("DelayGalleryButton", delay);
     }
 
     public void QuitButton(float delay) 
@@ -41,7 +34,7 @@ public class StartMenuManager : MonoBehaviour
         Invoke("DelayQuitButton", delay);
     }
 
-    public void DelayStartGame()
+    public void DelayStartButton()
     {
         _loadScenes._targetScene._sceneName = "開頭";
         _loadScenes._asyncload.allowSceneActivation = true;
@@ -52,8 +45,9 @@ public class StartMenuManager : MonoBehaviour
         Application.Quit();
     }
 
-    private void ButtonStates(bool active) 
+    public void DelayGalleryButton()
     {
-        _buttons.SetActive(active);
+        _loadScenes.LoadNewScene("畫廊");
+        _loadScenes._asyncload.allowSceneActivation = true;
     }
 }
