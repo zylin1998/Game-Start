@@ -80,7 +80,7 @@ public class ScreenMenu : MonoBehaviour
 
         screenSize = _screenSetting.ReturnIntSize(screenSelect);
 
-        Screen.SetResolution(screenSize.x, screenSize.y, true);
+        Screen.SetResolution(screenSize.x, screenSize.y, false);
 
         _displaySize.text = _screenSetting.ReturnStrSize(_sizeSelect);
     }
