@@ -5,7 +5,7 @@ public class KeyInputManager : MonoBehaviour
 {
     [Header("輸入按鈕欄位及動作輸入")]
     public Transform _keyParent;
-    public KeyConfig _actions;
+    public static KeyConfig _actions;
     [Header("等待輸入及是否變動")]
     public bool _waitKey = false;
     public bool _isChanged = false;
@@ -17,6 +17,8 @@ public class KeyInputManager : MonoBehaviour
     void Start()
     {
         _inputFeilds = _keyParent.GetComponentsInChildren<KeyInputFeild>();
+        if (_actions == null) { _actions = (KeyConfig)Resources.Load(System.IO.Path.Combine("設定檔", "Keys"), typeof(KeyConfig)); }
+
         KeyInitialize();
     }
 

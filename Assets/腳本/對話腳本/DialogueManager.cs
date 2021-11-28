@@ -7,16 +7,11 @@ public class DialogueManager : MonoBehaviour
 {
     [Header("資料導入物件")]
     public Dialogue _dialogue;
+    public static TextSetting _textSetting;
 
     [Header("文字輸出物件")]
     public Text _nameText;
     public Text _dialogueText;
-
-    [Header("文字瀏覽速度設定")]
-    [Range(0f, 0.10f)]
-    public float _loadTextSpeed = 0f;
-    [Range(0f,5f)]
-    public float _autoSpeed = 5f;
 
     [Header("對話狀態設定")]
     public bool _autoMode = false;
@@ -24,6 +19,7 @@ public class DialogueManager : MonoBehaviour
     public bool _dialogueMode = false;
 
     private int _isSpeakChara;
+    [Header("對話資料輸出")]
     public List<Chara> _charas;
     public Queue<Sentence> _sentences;
     public Queue<Sentence> _log;
@@ -31,6 +27,8 @@ public class DialogueManager : MonoBehaviour
     void Awake()
     {
         _sentences = new Queue<Sentence>();
+        if(_textSetting == null) { _textSetting = (TextSetting)Resources.Load(System.IO.Path.Combine("設定檔", "Text Setting"), typeof(TextSetting)); }
+
         _log = new Queue<Sentence>();
     }
 
@@ -66,6 +64,7 @@ public class DialogueManager : MonoBehaviour
         }
 
         Sentence sentence = _sentences.Dequeue();
+        _log.Enqueue(sentence);
 
         _isSpeakChara = sentence.chara;
         _nameText.text = _charas[_isSpeakChara].name;
@@ -78,9 +77,6 @@ public class DialogueManager : MonoBehaviour
             StopAllCoroutines();
             StartCoroutine(TypeSentence(sentence.dialogue));
         }
-
-        //if (_autoMode && !_skipMode) { Invoke("DisplayNextSentence", _autoSpeed); }
-    
     }
 
     private void SkipModeTypeSentence(string sentence) 
@@ -88,7 +84,7 @@ public class DialogueManager : MonoBehaviour
         _dialogueText.text = "";
         _dialogueText.text += sentence;
 
-        Invoke("DisplayNextSentence", 0.2f);
+        Invoke("DisplayNextSentence", 0.15f);
     }
 
     private IEnumerator TypeSentence(string sentence) 
@@ -97,10 +93,10 @@ public class DialogueManager : MonoBehaviour
         for(int i = 0; i < sentence.ToCharArray().Length; i++)
         {
             _dialogueText.text += sentence.ToCharArray()[i];
-            yield return new WaitForSeconds(_loadTextSpeed);
+            yield return new WaitForSeconds(_textSetting.textSpeed * 0.02f);
         }
 
-        if (_autoMode && !_skipMode) { Invoke("DisplayNextSentence", _autoSpeed); }
+        if (_autoMode && !_skipMode) { Invoke("DisplayNextSentence", _textSetting.autoSpeed * 0.5f); }
     }
 
     public void Auto() 

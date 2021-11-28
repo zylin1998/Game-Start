@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Volume Setting
   m_EditorClassIdentifier: 
   mainVolume: 50
-  backgroundVolume: 50
-  effectVolume: 50
+  backgroundVolume: 72
+  effectVolume: 0

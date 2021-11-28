@@ -3,7 +3,7 @@ using UnityEngine;
 public class KeyManager : MonoBehaviour
 {
     [Header("按鍵資料引入")]
-    public KeyConfig _actions;
+    public static KeyConfig _actions;
     [Header("方向")]
     public Vector2Int _direction = new Vector2Int(0, 0);
     [Header("按鍵狀態")]
@@ -15,7 +15,12 @@ public class KeyManager : MonoBehaviour
     public bool _escapeState = false;
     public bool _actionsPause = false;
 
-    public void Update()
+    private void Start()
+    {
+        if (_actions == null) { _actions = (KeyConfig)Resources.Load(System.IO.Path.Combine("設定檔", "Keys"), typeof(KeyConfig)); }
+    }
+
+    private void Update()
     {
         DirectionInput();
         JumpInput();

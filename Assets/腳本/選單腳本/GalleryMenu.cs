@@ -9,7 +9,7 @@ public class GalleryMenu : MonoBehaviour
     public LoadScenes _loadScenes;
     [Header("CG¹wÄý")]
     public GameObject _cGDisplay;
-    public CGData _cGData;
+    public static CGData _cGData;
 
     private Button[] _cGButton;
     private CGSlot[] _cGSlots;
@@ -21,6 +21,8 @@ public class GalleryMenu : MonoBehaviour
         _cGSlots = _cGParent.GetComponentsInChildren<CGSlot>();
         _cGButton = _cGParent.GetComponentsInChildren<Button>();
         _nowCG = _cGDisplay.GetComponent<Image>();
+
+        if(_cGData == null) { _cGData = (CGData)Resources.Load(System.IO.Path.Combine("CG", "CG Data"), typeof(CGData)); }
         
         Initialized();
     }

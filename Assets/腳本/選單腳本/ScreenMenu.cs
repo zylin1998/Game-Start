@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class ScreenMenu : MonoBehaviour
 {
     [Header("畫面資訊")]
-    public ScreenSetting _screenSetting;
+    public static ScreenSetting _screenSetting;
     [Header("螢幕調整")]
     public Button[] _screenFull;
     public Button[] _screenSize;
@@ -13,6 +13,8 @@ public class ScreenMenu : MonoBehaviour
 
     private void Start()
     {
+        if (_screenSetting == null) { _screenSetting = (ScreenSetting)Resources.Load(System.IO.Path.Combine("設定檔", "Screen Setting"), typeof(ScreenSetting)); }
+
         Initialized();
     }
 

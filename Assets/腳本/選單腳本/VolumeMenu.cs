@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class VolumeMenu : MonoBehaviour
 {
     [Header("音量資訊")]
-    public VolumeSetting _volumeSetting;
+    public static VolumeSetting _volumeSetting;
     [Header("音量")]
     public Slider _mainVolume;
     public Slider _backgroundVolume;
@@ -15,6 +15,8 @@ public class VolumeMenu : MonoBehaviour
 
     private void Start()
     {
+        if(_volumeSetting == null) { _volumeSetting = (VolumeSetting)Resources.Load(System.IO.Path.Combine("設定檔", "Volume Setting"),typeof(VolumeSetting)); }
+
         Initialized();
     }
 
