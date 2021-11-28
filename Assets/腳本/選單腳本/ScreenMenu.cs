@@ -32,11 +32,13 @@ public class ScreenMenu : MonoBehaviour
         {
             _screenFull[0].image.color = Color.gray;
             _screenFull[0].enabled = false;
+            Screen.fullScreen = true;
         }
         else
         {
             _screenFull[1].image.color = Color.gray;
             _screenFull[1].enabled = false;
+            Screen.fullScreen = false;
         }
     }
 
@@ -57,6 +59,8 @@ public class ScreenMenu : MonoBehaviour
 
     private void ScreenSize(int screenSelect)
     {
+        Vector2Int screenSize;
+
         foreach (Button button in _screenSize)
         {
             button.image.color = Color.white;
@@ -73,6 +77,10 @@ public class ScreenMenu : MonoBehaviour
             _screenSize[1].enabled = false;
             _screenSize[1].image.color = Color.gray;
         }
+
+        screenSize = _screenSetting.ReturnIntSize(screenSelect);
+
+        Screen.SetResolution(screenSize.x, screenSize.y, true);
 
         _displaySize.text = _screenSetting.ReturnStrSize(_sizeSelect);
     }

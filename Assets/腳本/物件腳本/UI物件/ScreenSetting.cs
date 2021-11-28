@@ -15,9 +15,9 @@ public class ScreenSetting : ScriptableObject
         return temp;
     }
 
-    public int[] ReturnIntSize(int select)
+    public Vector2Int ReturnIntSize(int select)
     {
-        int[] temp = { System.Convert.ToInt32(windowSizes[select, 0]), System.Convert.ToInt32(windowSizes[select, 1]) };
+        Vector2Int temp = new Vector2Int(System.Convert.ToInt32(windowSizes[select, 0]), System.Convert.ToInt32(windowSizes[select, 1]));
 
         return temp;
     }

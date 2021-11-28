@@ -3068,6 +3068,7 @@ MonoBehaviour:
   _screenSize:
   - {fileID: 1978657714}
   - {fileID: 664972551}
+  _screenController: {fileID: 0}
   _displaySize: {fileID: 27011655}
   _sizeSelect: 0
 --- !u!114 &758377782 stripped
