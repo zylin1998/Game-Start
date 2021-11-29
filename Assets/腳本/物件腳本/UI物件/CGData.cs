@@ -9,7 +9,7 @@ public class CG
     public Sprite sprite;
 }
 
-[CreateAssetMenu(fileName = "CG Data", menuName = "Create CG Data", order = 1)]
+[CreateAssetMenu(fileName = "CG Data", menuName = "CG Data", order = 1)]
 public class CGData : ScriptableObject
 {
     public CG[] CGs;

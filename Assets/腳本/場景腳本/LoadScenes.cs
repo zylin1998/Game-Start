@@ -4,11 +4,16 @@ using UnityEngine.SceneManagement;
 
 public class LoadScenes : MonoBehaviour
 {
-    public TargetScene _targetScene;
+    public static TargetScene _targetScene;
 
     public float Progress;
 
     public AsyncOperation _asyncload;
+
+    private void Start()
+    {
+        if(_targetScene == null) { _targetScene = (TargetScene)Resources.Load(System.IO.Path.Combine("過場資料","Target Scene"),typeof(TargetScene)); }
+    }
 
     public void LoadNewScene(string sceneName) 
     {

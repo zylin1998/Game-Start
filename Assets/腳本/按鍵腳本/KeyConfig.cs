@@ -7,7 +7,7 @@ public class Actions
     public KeyCode KeyCode;
 }
 
-[CreateAssetMenu(fileName = "New Key Setting", menuName = "Create Data Asset", order = 1)]
+[CreateAssetMenu(fileName = "New Key Setting", menuName = "System Data/Key Setting", order = 1)]
 public class KeyConfig : ScriptableObject
 {
     public Actions[] _actions;

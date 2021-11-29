@@ -27,7 +27,7 @@ public class FirstSceneDialogue : MonoBehaviour
 
     public void ChangeScene()
     {
-        _loadScenes._targetScene._sceneName = "開始任務";
+        LoadScenes._targetScene._sceneName = "開始任務";
         Debug.Log(SceneManager.GetActiveScene().name);
         _loadScenes.LoadNewScene("過場畫面");
         _loadScenes._asyncload.allowSceneActivation = true;

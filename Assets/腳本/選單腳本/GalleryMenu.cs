@@ -34,7 +34,6 @@ public class GalleryMenu : MonoBehaviour
 
     public void DisplayCG(CGSlot slot) 
     {
-        Debug.Log("CG " + slot.ID + " is coming soon.");
         _cGDisplay.SetActive(true);
         _nowCG.sprite = slot._sprite.sprite;
     }
@@ -47,7 +46,12 @@ public class GalleryMenu : MonoBehaviour
 
     private void Initialized()
     {
-        foreach(CG cg in _cGData.CGs) 
+        foreach (Button button in _cGButton)
+        {
+            button.enabled = false;
+        }
+
+        foreach (CG cg in _cGData.CGs) 
         { 
             foreach(CGSlot slot in _cGSlots) 
             {

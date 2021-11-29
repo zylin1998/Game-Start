@@ -16,7 +16,7 @@ public class Chara
     public int posiX;
 }
 
-[CreateAssetMenu(fileName = "New Dialogue", menuName = "Create Dialoue", order = 1)]
+[CreateAssetMenu(fileName = "New Dialogue", menuName = "Dialogue", order = 1)]
 public class Dialogue : ScriptableObject
 {
     public Chara[] charas;

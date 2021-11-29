@@ -4,13 +4,13 @@ using UnityEngine.UI;
 public class CrossScene : MonoBehaviour
 {
     public LoadScenes _loadScenes;
-    public TargetScene _targetScene;
+    public static TargetScene _targetScene;
     public int Progress;
     public Text _text;
 
     private void Start()
     {
-        _targetScene = (TargetScene)Resources.Load(System.IO.Path.Combine("過場資料", "Target Scene"), typeof(TargetScene));
+        if (_targetScene == null) { _targetScene = (TargetScene)Resources.Load(System.IO.Path.Combine("過場資料", "Target Scene"), typeof(TargetScene)); }
         _loadScenes.LoadNewScene(_targetScene._sceneName);
     }
 
