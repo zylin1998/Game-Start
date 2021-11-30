@@ -10,15 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 53a6542b5c712794eb7cda6bd425f807, type: 3}
-  m_Name: Dialogue0003
+  m_Name: Dialogue0004
   m_EditorClassIdentifier: 
-  charas:
-  - name: 1
-    posiX: 0
-  - name: 2
-    posiX: 0
-  - name: 3
-    posiX: 0
-  - name: 4
-    posiX: 0
+  charas: []
   sentences: []
