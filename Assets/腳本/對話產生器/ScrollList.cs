@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -52,5 +51,25 @@ public class ScrollList : MonoBehaviour
     {
         Destroy(_previewTexts[id]);
         _previewTexts.RemoveAt(id);
+    }
+
+    public void CopyPreviewList(GameObject newList) 
+    {
+        if(newList.transform.childCount != 0) 
+        {
+            Transform[] elderList = newList.GetComponentsInChildren<Transform>();
+
+            foreach(Transform transform in elderList) 
+            {
+                if (transform.name.Equals(newList.name)) { continue; }
+
+                Destroy(transform.gameObject);
+            }
+        }
+
+        foreach (GameObject gameObject in _previewTexts) 
+        {
+            GameObject newObject = Instantiate(gameObject, newList.transform);
+        }
     }
 }

@@ -11,6 +11,9 @@ public class DialogueSetting : MonoBehaviour
     public Dropdown _typeSelect;
     public Dropdown _charaSelect;
     public int _charaCount;
+    [Header("對話預覽")]
+    public GameObject preview1;
+    public GameObject preview2;
     [Header("暫存清單")]
     public List<Chara> charas;
     public List<Sentence> sentences;
@@ -74,7 +77,7 @@ public class DialogueSetting : MonoBehaviour
                 if (sentence.chara == 0) { name = "旁白"; }
                 else { name = charas[sentence.chara].name; }
 
-                string preview = name + " " + sentence.dialogue;
+                string preview = name + "\n" + sentence.dialogue;
 
                 FindObjectOfType<ScrollList>().IncreaseText(preview);
             }
@@ -253,9 +256,9 @@ public class DialogueSetting : MonoBehaviour
         if (waitForCheck.chara == 0) { name = "旁白"; }
         else { name = charas[waitForCheck.chara].name; }
 
-        string preview = name + " " + waitForCheck.dialogue;
+        string preview = name + "\n" + waitForCheck.dialogue;
 
-        FindObjectOfType<ScrollList>().IncreaseText(preview);
+        preview1.GetComponent<ScrollList>().IncreaseText(preview);
     }
 
     private void InsertSentence() 
@@ -276,7 +279,7 @@ public class DialogueSetting : MonoBehaviour
         if (waitForCheck.chara == 0) { name = "旁白"; }
         else { name = charas[waitForCheck.chara].name; }
 
-        string preview = name + " " + waitForCheck.dialogue;
+        string preview = name + "\n" + waitForCheck.dialogue;
 
         FindObjectOfType<ScrollList>().InsertText(waitForCheck.id, preview);
     }
@@ -288,7 +291,7 @@ public class DialogueSetting : MonoBehaviour
         if (waitForCheck.chara == 0) { name = "旁白"; }
         else { name = charas[waitForCheck.chara].name; }
 
-        string preview = name + " " + waitForCheck.dialogue;
+        string preview = name + "\n" + waitForCheck.dialogue;
 
         FindObjectOfType<ScrollList>().EditText(waitForCheck.id, preview);
     }
