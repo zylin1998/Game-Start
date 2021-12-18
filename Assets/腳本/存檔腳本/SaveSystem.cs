@@ -38,8 +38,11 @@ public static class SaveSystem
             return null;
         }
     }
+}
 
-    /*public static void SaveData(Object @object) 
+
+
+/*public static void SaveData(Object @object) 
     {
         BinaryFormatter formatter = new BinaryFormatter();
         string path = Path.Combine(Application.dataPath, "SaveData", "Save.save");
@@ -68,4 +71,3 @@ public static class SaveSystem
             return null;
         }
     }*/
-}

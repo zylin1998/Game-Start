@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class DialogueSetting : MonoBehaviour
 {
+    #region 公開欄位
+
     [Header("對話檔案")]
     public static Dialogue _dialogue;
     [Header("使用物件")]
@@ -17,10 +19,20 @@ public class DialogueSetting : MonoBehaviour
     [Header("暫存清單")]
     public List<Chara> charas;
     public List<Sentence> sentences;
-    public Sentence waitForCheck;
-    public int _nowType;
-    public int _nowID;
-    public int _nowChara;
+
+    #endregion
+
+    #region 私人欄位
+
+    [SerializeField]
+    private Sentence waitForCheck;
+    private int _nowType;
+    private int _nowID;
+    private int _nowChara;
+
+    #endregion
+
+    #region 事件
 
     private void Start()
     {
@@ -29,32 +41,31 @@ public class DialogueSetting : MonoBehaviour
         waitForCheck = new Sentence();
     }
 
+    #endregion
+
+    #region 初始化
+
     public void Initialized(Dialogue dialogue)
     {
         _dialogue = dialogue;
 
         _nameSelect.options.Clear();
+        preview1.GetComponent<ScrollList>().Initialized();
         
         Chara charaTemp = new Chara();
-        charaTemp.name = "";
-        charaTemp.posiX = 0;
         charas.Add(charaTemp);
 
-        Dropdown.OptionData dataTemp = new Dropdown.OptionData();
-        dataTemp.text = "旁白";
+        Dropdown.OptionData dataTemp = new Dropdown.OptionData("旁白");
         _nameSelect.options.Add(dataTemp);
 
         if(_dialogue.charas.Length > 0)
         { 
             foreach(Chara chara in _dialogue.charas) 
             {
-                charaTemp = new Chara();
-                dataTemp = new Dropdown.OptionData();
+                charaTemp = new Chara(chara.name, chara.posiX);
+                dataTemp = new Dropdown.OptionData(chara.name);
 
-                charaTemp.name = chara.name;
-                charaTemp.posiX = chara.posiX;
                 charas.Add(charaTemp);
-                dataTemp.text = chara.name;
                 _nameSelect.options.Add(dataTemp);
             }
 
@@ -65,24 +76,18 @@ public class DialogueSetting : MonoBehaviour
         {
             foreach (Sentence sentence in _dialogue.sentences) 
             {
-                Sentence temp = new Sentence();
-                temp.type = sentence.type;
-                temp.id = sentence.id;
-                temp.chara = sentence.chara;
-                temp.dialogue = sentence.dialogue;
+                Sentence temp = new Sentence(sentence.type, sentence.id, sentence.chara, 0, sentence.dialogue);
+                
                 sentences.Add(temp);
 
-                string name;
-
-                if (sentence.chara == 0) { name = "旁白"; }
-                else { name = charas[sentence.chara].name; }
-
-                string preview = name + "\n" + sentence.dialogue;
-
-                FindObjectOfType<ScrollList>().IncreaseText(preview);
+                preview1.GetComponent<ScrollList>().IncreaseText(sentence);
             }
         }
     }
+
+    #endregion
+
+    #region 人物設定
 
     public void SetCharaCount(string newValue) 
     {
@@ -113,6 +118,10 @@ public class DialogueSetting : MonoBehaviour
         charas[_nameSelect.value].posiX = System.Convert.ToInt32(posiX);
     }
 
+    #endregion
+
+    #region 清單確認
+
     private void CheckCharaList() 
     {
         if (_charaCount > charas.Count - 1) 
@@ -139,6 +148,10 @@ public class DialogueSetting : MonoBehaviour
 
         SetCharas();
     }
+
+    #endregion
+
+    #region 對話資料輸入
 
     public void TypeSelect(int newValue) 
     {
@@ -177,12 +190,12 @@ public class DialogueSetting : MonoBehaviour
 
         else if(select == 4) { RemoveSentence(); }
 
-        waitForCheck = new Sentence();
-
-        waitForCheck.type = _nowType;
-        waitForCheck.id = _nowID;
-        waitForCheck.chara = _nowChara;
+        waitForCheck = new Sentence(_nowType,_nowID, _nowChara, 0, "");
     }
+
+    #endregion
+
+    #region 重製人物清單
 
     private void ResetList() 
     {
@@ -204,33 +217,36 @@ public class DialogueSetting : MonoBehaviour
         SetCharas();
     }
 
+    #endregion
+
+    #region 輸出對話
+
     public void SaveDialogue() 
     {
-        _dialogue.charas = new Chara[charas.Count - 1];
-        _dialogue.sentences = new Sentence[sentences.Count];
+        Chara[] newCharas = new Chara[charas.Count - 1];
+        Sentence[] newSentences = new Sentence[sentences.Count];
 
         for(int i = 0; i < charas.Count - 1; i++) 
         {
-            Chara temp = new Chara();
+            Chara temp = new Chara(charas[i + 1].name, charas[i + 1].posiX);
 
-            temp.name = charas[i + 1].name;
-            temp.posiX = charas[i + 1].posiX;
-
-            _dialogue.charas[i] = temp;
+            newCharas[i] = temp;
         }
 
         for (int i = 0; i < sentences.Count; i++)
         {
-            Sentence temp = new Sentence();
+            Sentence temp = new Sentence(sentences[i].type, sentences[i].id, sentences[i].chara, 0, sentences[i].dialogue);
 
-            temp.type = sentences[i].type;
-            temp.id = sentences[i].id;
-            temp.chara = sentences[i].chara;
-            temp.dialogue = sentences[i].dialogue;
-
-            _dialogue.sentences[i] = temp;
+            newSentences[i] = temp;
         }
+
+        DialogueData data = new DialogueData(newCharas, newSentences);
+        FindObjectOfType<OpenDialogue>().SaveDialogue(data);
     }
+
+    #endregion
+
+    #region 建立對話人物清單
 
     private void SetCharas() 
     {
@@ -238,12 +254,15 @@ public class DialogueSetting : MonoBehaviour
 
         foreach(Dropdown.OptionData data in _nameSelect.options) 
         {
-            Dropdown.OptionData temp = new Dropdown.OptionData();
-            temp.text = data.text;
-
             _charaSelect.options.Add(data);
         }
+
+        FindObjectOfType<ScrollList>().charas = charas;
     }
+
+    #endregion
+
+    #region 對話設定
 
     private void AddSentence() 
     {
@@ -251,14 +270,7 @@ public class DialogueSetting : MonoBehaviour
 
         sentences.Add(waitForCheck);
 
-        string name;
-
-        if (waitForCheck.chara == 0) { name = "旁白"; }
-        else { name = charas[waitForCheck.chara].name; }
-
-        string preview = name + "\n" + waitForCheck.dialogue;
-
-        preview1.GetComponent<ScrollList>().IncreaseText(preview);
+        preview1.GetComponent<ScrollList>().IncreaseText(sentences[sentences.Count - 1]);
     }
 
     private void InsertSentence() 
@@ -266,34 +278,24 @@ public class DialogueSetting : MonoBehaviour
         Sentence temp = new Sentence();
         sentences.Add(temp);
 
-        Debug.Log(sentences.Count);
-        
         for(int i = sentences.Count - 2; i >= waitForCheck.id; i--) 
         {
             sentences[i].id++;
             sentences[i + 1] = sentences[i];
-
-            if(i == waitForCheck.id) { sentences[i] = waitForCheck; }
+            
+            if(i == waitForCheck.id) 
+            { 
+                sentences[i] = waitForCheck;
+                preview1.GetComponent<ScrollList>().InsertText(sentences[i]);
+            }
         }
-
-        if (waitForCheck.chara == 0) { name = "旁白"; }
-        else { name = charas[waitForCheck.chara].name; }
-
-        string preview = name + "\n" + waitForCheck.dialogue;
-
-        FindObjectOfType<ScrollList>().InsertText(waitForCheck.id, preview);
     }
 
     private void EditSentence() 
     {
         sentences[waitForCheck.id] = waitForCheck;
 
-        if (waitForCheck.chara == 0) { name = "旁白"; }
-        else { name = charas[waitForCheck.chara].name; }
-
-        string preview = name + "\n" + waitForCheck.dialogue;
-
-        FindObjectOfType<ScrollList>().EditText(waitForCheck.id, preview);
+        preview1.GetComponent<ScrollList>().EditText(sentences[waitForCheck.id]);
     }
 
     private void RemoveSentence() 
@@ -305,6 +307,8 @@ public class DialogueSetting : MonoBehaviour
             if(sentences[i].id > waitForCheck.id) { sentences[i].id--; }
         }
 
-        FindObjectOfType<ScrollList>().RemoveText(waitForCheck.id);
+        preview1.GetComponent<ScrollList>().RemoveText(waitForCheck.id);
     }
+
+    #endregion
 }

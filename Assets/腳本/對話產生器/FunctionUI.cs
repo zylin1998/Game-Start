@@ -3,22 +3,32 @@ using UnityEngine.UI;
 
 public class FunctionUI : MonoBehaviour
 {
+    #region 欄位
+
     [Header("對話檔案")]
     public static Dialogue _dialogue;
     [Header("使用物件")]
-    public GameObject _warning;
-    public GameObject _charaSettingUI;
-    public GameObject _dialogueSettingUI;
-    public Dropdown _eventSelect;
-    public Dropdown _charaSelect;
-    public InputField _sentencID;
-    public InputField _sentenceInput;
-    public int select = 0;
+    public GameObject _warning;             //錯誤警告訊息
+    public GameObject _charaSettingUI;      //人物設定介面
+    public GameObject _dialogueSettingUI;   //對話設定介面
+    public Dropdown _eventSelect;           //事件種類選項
+    public Dropdown _charaSelect;           //人物種類選項
+    public InputField _sentencID;           //對話編號輸入欄
+    public InputField _sentenceInput;       //對話輸入欄
+    public int select = 0;                  //功能選擇 1.新增 2.插入 3.編輯 4.刪除 5.儲存
+
+    #endregion
+
+    #region 初始化
 
     public void Initialized(Dialogue dialogue)
     {
         _dialogue = dialogue;
     }
+
+    #endregion
+
+    #region 開啟人物設定介面
 
     public void SetChara() 
     {
@@ -27,6 +37,10 @@ public class FunctionUI : MonoBehaviour
         _charaSettingUI.SetActive(true);
         _dialogueSettingUI.SetActive(false);
     }
+
+    #endregion
+
+    #region 對話功能選擇
 
     public void SettingFunctionSelect(int newValue) 
     {
@@ -40,6 +54,7 @@ public class FunctionUI : MonoBehaviour
 
     }
 
+
     public void SaveButton() 
     {
         select = 5;
@@ -47,6 +62,10 @@ public class FunctionUI : MonoBehaviour
 
         FindObjectOfType<DialogueSetting>().SaveDialogue();
     }
+
+    #endregion
+
+    #region 對話設定介面設置
 
     private void CheckInteractable() 
     {
@@ -66,6 +85,10 @@ public class FunctionUI : MonoBehaviour
             _sentenceInput.interactable = false;
         }
     }
+
+    #endregion
+
+    #region 警告種類選擇
 
     private bool CheckWarning() 
     {
@@ -98,4 +121,6 @@ public class FunctionUI : MonoBehaviour
             return true;
         }
     }
+
+    #endregion
 }

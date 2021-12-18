@@ -1,25 +1,96 @@
 using UnityEngine;
 
+#region 文本類別
+
 [System.Serializable]
 public class Sentence
 {
-    public int type;
+    public Sentence() 
+    {
+        type = 0;
+        type = 0;
+        chara = 0;
+        isRead = 0;
+        dialogue = "";
+    }
+
+    public Sentence(int type, int id, int chara, int isRead, string dialogue) 
+    {
+        this.type = type;
+        this.id = id;
+        this.chara = chara;
+        this.isRead = isRead;
+        this.dialogue = dialogue;
+    }
+
     public int id;
+    public int type;
     public int chara;
+    public int isRead;
     public string dialogue;
 }
 
+#endregion
+
+#region 人物類別
+
 [System.Serializable]
-public class Chara 
+public class Chara
 {
+    public Chara() 
+    {
+        name = "";
+        posiX = 0;
+    }
+
+    public Chara(string name, int posiX)
+    {
+        this.name = name;
+        this.posiX = posiX;
+    }
+
     public string name;
     public int posiX;
 }
 
-[CreateAssetMenu(fileName = "New Dialogue", menuName = "Dialogue", order = 1)]
-public class Dialogue : ScriptableObject
+#endregion
+
+#region 儲存用對話類別
+
+[System.Serializable]
+public class DialogueData
 {
+    public DialogueData() { }
+
+    public DialogueData(Chara[] charas, Sentence[] sentences) 
+    { 
+        this.charas = charas;
+        this.sentences = sentences;
+    }
+
     public Chara[] charas;
 
     public Sentence[] sentences;
 }
+
+#endregion
+
+#region 使用中對話
+
+[CreateAssetMenu(fileName = "New Dialogue", menuName = "Dialogue", order = 1)]
+public class Dialogue : ScriptableObject
+{
+    public Dialogue() { }
+
+    public Dialogue(Chara[] charas, Sentence[] sentences) 
+    {
+        this.charas = charas;
+        this.sentences = sentences;
+    }
+
+    public Chara[] charas;
+
+    public Sentence[] sentences;
+}
+
+#endregion
