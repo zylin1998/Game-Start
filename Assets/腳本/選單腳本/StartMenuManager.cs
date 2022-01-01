@@ -36,7 +36,7 @@ public class StartMenuManager : MonoBehaviour
 
     public void DelayStartButton()
     {
-        LoadScenes._targetScene._sceneName = "開頭";
+        LoadScenes._targetScene._sceneName = "開始任務";
         _loadScenes._asyncload.allowSceneActivation = true;
     }
 

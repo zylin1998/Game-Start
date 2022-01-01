@@ -38,6 +38,41 @@ public static class SaveSystem
             return null;
         }
     }
+
+    public static void SaveGameSaveData(string fileName, GameSaveData data)
+    {
+        string path = Path.Combine(Application.dataPath, "SaveData");
+
+        DirectoryInfo saveDir = new DirectoryInfo(path);
+
+        if (!saveDir.Exists) { saveDir.Create(); }
+
+        BinaryFormatter formatter = new BinaryFormatter();
+        FileStream stream = new FileStream(Path.Combine(path, fileName + ".save"), FileMode.Create);
+
+        formatter.Serialize(stream, data);
+        stream.Close();
+    }
+
+    public static GameSaveData LoadGameSaveData(string fileName)
+    {
+        string path = Path.Combine(Application.dataPath, "SaveData", fileName + ".save");
+        if (File.Exists(path))
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream stream = new FileStream(path, FileMode.Open);
+
+            GameSaveData data = formatter.Deserialize(stream) as GameSaveData;
+            stream.Close();
+
+            return data;
+        }
+        else
+        {
+            //Debug.LogError("File not found in " + path);
+            return null;
+        }
+    }
 }
 
 

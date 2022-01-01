@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ThirdPersonMovement : MonoBehaviour
@@ -22,7 +20,7 @@ public class ThirdPersonMovement : MonoBehaviour
     public bool isGrounded;
 
     public bool _cusorLockState = true;
-    
+
     private Animator _anim;
     private float turnSmoothVelocity;
 
@@ -38,8 +36,6 @@ public class ThirdPersonMovement : MonoBehaviour
         Cusor_State();
         Ground_Check();
         Move_Check();
-        
-
     }
 
     private void Move_Check() 
