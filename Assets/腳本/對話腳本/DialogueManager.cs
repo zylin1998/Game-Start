@@ -1,3 +1,4 @@
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,8 +6,10 @@ using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
+    #region 公開欄位
+
     [Header("資料導入物件")]
-    public Dialogue _dialogue;
+    public static Dialogue _dialogue;
     public static TextSetting _textSetting;
 
     [Header("文字輸出物件")]
@@ -22,19 +25,30 @@ public class DialogueManager : MonoBehaviour
     [Header("對話資料輸出")]
     public List<Chara> _charas;
     public Queue<Sentence> _sentences;
-    public Queue<Sentence> _log;
-   
-    void Awake()
-    {
-        _sentences = new Queue<Sentence>();
-        if(_textSetting == null) { _textSetting = (TextSetting)Resources.Load(System.IO.Path.Combine("設定檔", "Text Setting"), typeof(TextSetting)); }
+    public List<Sentence> _log;
 
-        _log = new Queue<Sentence>();
+    #endregion
+
+    #region 事件
+
+    private void Awake()
+    {
+        if(_textSetting == null) { _textSetting = (TextSetting)Resources.Load(Path.Combine("設定檔", "Text Setting"), typeof(TextSetting)); }
+        if (_dialogue == null) { _dialogue = (Dialogue)Resources.Load(Path.Combine("對話資料", "Dialogue"), typeof(Dialogue)); }
+
+        _sentences = new Queue<Sentence>();
+        _log = new List<Sentence>();
     }
+
+    #endregion
+
+    #region 對話初始化
 
     public void StartDialogue(string ID) {
 
-        _dialogue = (Dialogue)Resources.Load(System.IO.Path.Combine("對話資料", "Dialogue" + ID), typeof(Dialogue));
+        //_dialogue = (Dialogue)Resources.Load(Path.Combine("對話資料", "Dialogue" + ID), typeof(Dialogue));
+
+        GetFileName("Dialogue" + ID);
 
         _dialogueMode = true;
         FindObjectOfType<DialogueBoxController>().DialogueState(true);
@@ -56,6 +70,10 @@ public class DialogueManager : MonoBehaviour
         DisplayNextSentence();
     }
 
+    #endregion
+
+    #region 顯示下段對話
+
     public void DisplayNextSentence() {
     
         if(_sentences.Count == 0) { 
@@ -64,7 +82,7 @@ public class DialogueManager : MonoBehaviour
         }
 
         Sentence sentence = _sentences.Dequeue();
-        _log.Enqueue(sentence);
+        _log.Add(sentence);
 
         _isSpeakChara = sentence.chara;
         _nameText.text = _charas[_isSpeakChara].name;
@@ -121,15 +139,50 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region 結束對話
+
     public void EndDialogue() {
 
         _dialogueMode = false;
+
+        _skipMode = false;
+
         FindObjectOfType<DialogueBoxController>().DialogueState(false);
 
     }
+
+    #endregion
+
+    #region 回傳資訊
 
     public bool GetDialogueMode() { return _dialogueMode; }
 
     public int GetIsSpeakChara() { return _isSpeakChara - 1; }
 
+    #endregion
+
+    #region 開啟對話資料
+
+    private void GetFileName(string fileName)
+    {
+        string path = Path.Combine("DialogueData", fileName);
+
+        string dialoguePath = Path.Combine(Application.dataPath, path + ".dialogue");
+
+        if (File.Exists(dialoguePath))
+        {
+            _dialogue = SaveSystem.SetDefaultDialogue(dialoguePath);
+        }
+
+        else
+        {
+            Debug.Log("File Not Found.");
+            EndDialogue();
+        }
+
+    }
+
+    #endregion
 }

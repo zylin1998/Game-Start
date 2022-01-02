@@ -4,6 +4,8 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public static class SaveSystem
 {
+    #region 系統資訊
+
     public static void SaveSystemData(SystemDataCollect data)
     {
         string path = Path.Combine(Application.dataPath, "SaveData");
@@ -39,6 +41,10 @@ public static class SaveSystem
         }
     }
 
+    #endregion
+
+    #region 事件資訊
+
     public static void SaveGameSaveData(string fileName, GameSaveData data)
     {
         string path = Path.Combine(Application.dataPath, "SaveData");
@@ -72,6 +78,33 @@ public static class SaveSystem
             //Debug.LogError("File not found in " + path);
             return null;
         }
+    }
+
+    #endregion
+
+    #region 對話資訊
+
+    public static Dialogue SetDefaultDialogue(string dialoguePath)
+    {
+        BinaryFormatter formatter = new BinaryFormatter();
+        FileStream stream;
+
+        if (File.Exists(dialoguePath))
+        {
+            stream = new FileStream(dialoguePath, FileMode.Open);
+
+            DialogueData data = formatter.Deserialize(stream) as DialogueData;
+
+            Dialogue dialogue = new Dialogue(data.charas, data.sentences);
+
+            stream.Close();
+
+            return dialogue;
+        }
+
+        else { return null; }
+
+        #endregion
     }
 }
 

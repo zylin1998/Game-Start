@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dbb38855fb3f7b4e999e73b36e85c23, type: 3}
   m_Name: GameSave
   m_EditorClassIdentifier: 
-  loadFile: load4
+  loadFile: load3
   charaPosi:
-  - 20.913952
-  - -3.9999003
-  - -4.151329
+  - 22.83
+  - 11.300098
+  - -1.6610638
   jewelry: 010101
-  letter: 0101010101
+  letter: 0001010100

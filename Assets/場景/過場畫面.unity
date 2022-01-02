@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028346, g: 0.22571373, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -154,7 +154,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _loadScenes: {fileID: 59925581}
-  _targetScene: {fileID: 0}
   Progress: 0
   _text: {fileID: 1078890386}
 --- !u!4 &59925580
@@ -183,7 +182,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f137dd26bf2f414a8207ddc0f1bce8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetScene: {fileID: 0}
   Progress: 0
 --- !u!1 &805430893
 GameObject:
@@ -243,8 +241,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6d840bf6dec22504daa3e8d7be47293d, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: becc864661c707f469a46163e1d5b4cb, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -402,7 +400,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 4c748c52e83b64844ba399f00e87f0a4, type: 3}
+    m_Font: {fileID: 12800000, guid: b9283d9eac9660842b63de91519b14cb, type: 3}
     m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
