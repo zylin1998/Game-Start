@@ -15,5 +15,5 @@ MonoBehaviour:
   _name: "\u85CD\u5BF6\u73E0"
   _type: Ball
   _detail: "\u767C\u51FA\u5FAE\u5FAE\u85CD\u5149\u7684\u5BF6\u73E0"
-  _icon: {fileID: 21300000, guid: 90d9a375f569297449de3a69cb41cbd0, type: 3}
+  _icon: {fileID: 21300000, guid: c940b6a763b82224d8b4adf09ae947ca, type: 3}
   _isDefaultItem: 0
