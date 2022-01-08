@@ -3,26 +3,30 @@ using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
-    public Transform _displayParent;
+    [Header("物品欄位")]
     public Transform _ballParent;
     public Transform _letterParent;
+
+    [Header("背包介面")]
     public GameObject _inventoryUI;
-    public Text _detail;
+    public Transform[] _pages;
+
+    [Header("資訊欄位")]
+    public Text _jewelryDetail;
+    public Text _letterDetail;
 
     Inventory _inventory;
 
-    InventorySlot _displaySlot;
-    InventorySlot[] _ballSlots;
-    InventorySlot[] _letterSlots;
+    private InventorySlot[] _ballSlots;
+    private SlotWithName[] _letterSlots;
 
     private void Start()
     {
         _inventory = Inventory.instance;
         _inventory.OnItemChangedCallback += UpdateUI;
 
-        _displaySlot = _displayParent.GetComponentInChildren<InventorySlot>();
         _ballSlots = _ballParent.GetComponentsInChildren<InventorySlot>();
-        _letterSlots = _letterParent.GetComponentsInChildren<InventorySlot>();
+        _letterSlots = _letterParent.GetComponentsInChildren<SlotWithName>();
     }
 
     private void Update()
@@ -44,7 +48,7 @@ public class InventoryUI : MonoBehaviour
                 }
         }
 
-        foreach (InventorySlot slot in _letterSlots)
+        foreach (SlotWithName slot in _letterSlots)
         {
             foreach (Item item in _inventory._letterList)
                 if (item._name.Equals(slot._slotFor))
@@ -55,11 +59,53 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-    public void Display(InventorySlot inventorySlot) {
+    public void DisplayJewel(InventorySlot inventorySlot)
+    {
+        _jewelryDetail.text = inventorySlot._item._detail;
+    }
 
-        _displaySlot.AddItem(inventorySlot._item);
+    public void DisplayLetter(SlotWithName inventorySlot)
+    {
+        _letterDetail.text = inventorySlot._item._detail;
+    }
 
-        _detail.text = inventorySlot._item._detail;
-    
+    public void TurnLeftPage() 
+    {
+        bool posiChange;
+
+        foreach(Transform page in _pages) 
+        {
+            Debug.Log(page.localPosition.x);
+
+            posiChange = false;
+
+            if(!posiChange && page.localPosition.x == 1280) 
+            { 
+                page.localPosition = new Vector3(0, 0, 0);
+                posiChange = true;
+            }
+
+            if(!posiChange && page.localPosition.x == 0) { page.localPosition = new Vector3(1280, 0, 0); }
+        }
+    }
+
+    public void TurnRightPage()
+    {
+        bool posiChange;
+
+        foreach (Transform page in _pages)
+        {
+            Debug.Log(page.localPosition.x);
+
+            posiChange = false;
+
+            if (!posiChange && page.localPosition.x == 1280)
+            {
+                page.localPosition = new Vector3(0, 0, 0);
+                posiChange = true;
+            }
+
+            if (!posiChange && page.localPosition.x == 0) { page.localPosition = new Vector3(1280, 0, 0); }
+        }
     }
 }

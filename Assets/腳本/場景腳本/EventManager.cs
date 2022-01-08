@@ -46,7 +46,7 @@ public class EventManager : MonoBehaviour
         _jewelrySet = new GameObject[_jewelryCount];
         _letterSet = new GameObject[_letterCount];
 
-        for (int i = 0;i < _gameSave.jewelry.Length; i++) 
+        for (int i = 0;i < _jewelryCount; i++) 
         {
             if (!_gameSave.jewelry[i]) { 
                 GameObject gameObject = Instantiate(_jewelry[i], _jewelry[i].transform.position, _jewelry[i].transform.rotation, _itemParent);
@@ -56,9 +56,13 @@ public class EventManager : MonoBehaviour
                 itemPickup._text = _text;
                 _jewelrySet[i] = gameObject;
             }
+            else 
+            {
+                Inventory.instance.Add(_jewelry[i].GetComponentInChildren<ItemPickup>()._item);
+            }
         }
 
-        for (int i = 0; i < _gameSave.letter.Length; i++)
+        for (int i = 0; i < _letterCount; i++)
         {
             if (!_gameSave.letter[i])
             {
@@ -68,6 +72,10 @@ public class EventManager : MonoBehaviour
                 itemPickup._hint = _hint;
                 itemPickup._text = _text;
                 _letterSet[i] = gameObject;
+            }
+            else
+            {
+                Inventory.instance.Add(_letter[i].GetComponentInChildren<ItemPickup>()._item);
             }
         }
     }

@@ -8,11 +8,12 @@ public class InventorySlot : MonoBehaviour
     public Image _icon;
     public Item _item;
 
-    public void AddItem(Item item)
+    public virtual void AddItem(Item item)
     {
         _item = item;
 
         _icon.sprite = item._icon;
+        _icon.preserveAspect = true;
         _icon.enabled = true;
     }
 
