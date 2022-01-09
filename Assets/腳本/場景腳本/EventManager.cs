@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class EventManager : MonoBehaviour
 {
     public static GameSave _gameSave;
+    public static TargetScene _targetScene;
 
     [Header("物件欄位")]
     public Transform _itemParent;
@@ -27,6 +28,7 @@ public class EventManager : MonoBehaviour
     private void Start()
     {
         _gameSave = (GameSave)Resources.Load(System.IO.Path.Combine("設定檔", "GameSave"), typeof(GameSave));
+        if (_targetScene == null) { _targetScene = (TargetScene)Resources.Load(System.IO.Path.Combine("過場資料", "Target Scene"), typeof(TargetScene)); }
 
         Initialized();
     }
@@ -78,6 +80,8 @@ public class EventManager : MonoBehaviour
                 Inventory.instance.Add(_letter[i].GetComponentInChildren<ItemPickup>()._item);
             }
         }
+
+        _gameSave.initialScene = _targetScene._sceneName;
     }
 
     public void ItemPickUp(GameObject gameObject) 
@@ -118,11 +122,13 @@ public class EventManager : MonoBehaviour
             _letterCount--;
         }
 
+        _gameSave.initialScene = _targetScene._sceneName;
+
         _gameSave.charaPosi[0] = GameObject.Find("翡翠").transform.position.x;
         _gameSave.charaPosi[1] = GameObject.Find("翡翠").transform.position.y;
         _gameSave.charaPosi[2] = GameObject.Find("翡翠").transform.position.z;
 
-        _gameSaveData = new GameSaveData(_gameSave.charaPosi, _gameSave.jewelry, _gameSave.letter);
+        _gameSaveData = new GameSaveData(_gameSave.initialScene, _gameSave.charaPosi, _gameSave.jewelry, _gameSave.letter);
 
         SaveSystem.SaveGameSaveData(_gameSave.loadFile, _gameSaveData);
 

@@ -3,10 +3,12 @@ using UnityEngine;
 public class LoadMenu : MonoBehaviour
 {
     public static GameSave _gameSave;
+    public static TargetScene _targetScene;
 
     private void Start()
     {
         _gameSave = (GameSave)Resources.Load(System.IO.Path.Combine("設定檔", "GameSave"), typeof(GameSave));
+        if (_targetScene == null) { _targetScene = (TargetScene)Resources.Load(System.IO.Path.Combine("過場資料", "Target Scene"), typeof(TargetScene)); }
     }
 
     public void GameLoaded(int loadCount)
@@ -23,7 +25,9 @@ public class LoadMenu : MonoBehaviour
         else 
         {
             Debug.Log(fileName + " is loaded.");
-            _gameSave.FoundSave(fileName, gameSaveData.charaPosi, gameSaveData.jewelry, gameSaveData.letter);
+            _gameSave.FoundSave(fileName, gameSaveData.initialScene, gameSaveData.charaPosi, gameSaveData.jewelry, gameSaveData.letter);
         }
+
+        _targetScene._sceneName = _gameSave.initialScene;
     }
 }

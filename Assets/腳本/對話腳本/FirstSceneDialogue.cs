@@ -9,7 +9,7 @@ public class FirstSceneDialogue : MonoBehaviour
 
     void Start()
     {
-        Debug.Log(SceneManager.sceneCount);
+        //Debug.Log(SceneManager.sceneCount);
         _dialogueTrigger.GetComponent<DialogueTrigger>()._dialogueID = "0001";
         _dialogueTrigger.GetComponent<DialogueTrigger>().TriggerDialogue();
     }

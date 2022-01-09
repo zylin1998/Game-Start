@@ -84,6 +84,11 @@ public class DialogueManager : MonoBehaviour
         Sentence sentence = _sentences.Dequeue();
         _log.Add(sentence);
 
+        if (sentence.backGroundImage) 
+        {
+            FindObjectOfType<DialogueBoxController>().BackGroundMode(sentence);
+        }
+
         _isSpeakChara = sentence.chara;
         _nameText.text = _charas[_isSpeakChara].name;
         FindObjectOfType<DialogueSprite>().DispalySprites(_isSpeakChara);
@@ -136,6 +141,21 @@ public class DialogueManager : MonoBehaviour
         {
             _skipMode = true;
             DisplayNextSentence();
+        }
+    }
+
+    #endregion
+
+    #region ¤å¦r¹wÄý
+
+    public void SetLogText() 
+    {
+        FindObjectOfType<ScrollList>().charas = _charas;
+        FindObjectOfType<ScrollList>().Initialized();
+
+        foreach (Sentence sentence in _log) 
+        {
+            FindObjectOfType<ScrollList>().IncreaseSimpleText(sentence);
         }
     }
 

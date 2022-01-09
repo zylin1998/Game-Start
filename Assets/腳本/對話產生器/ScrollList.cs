@@ -94,6 +94,19 @@ public class ScrollList : MonoBehaviour
         }
     }
 
+    public void IncreaseSimpleText(Sentence sentence)
+    {
+        GameObject _newObject;
+
+        _newObject = Instantiate(_previewText, transform);
+
+        _newObject.GetComponent<PreviewContent>().SetSimpleContent(sentence);
+
+        _previewTexts.Add(_newObject);
+
+        _newObject.name = "預覽文字" + " " + (_previewTexts.Count - 1);
+    }
+
     #endregion
 
     #region 預覽文本複製

@@ -3,6 +3,8 @@ using UnityEngine;
 [System.Serializable]
 public class GameSaveData 
 {
+    public string initialScene;
+
     public float[] charaPosi;
 
     public bool[] jewelry;
@@ -11,6 +13,8 @@ public class GameSaveData
 
     public GameSaveData()
     {
+        initialScene = "開頭";
+
         charaPosi = new float[3];
 
         jewelry = new bool[3];
@@ -18,8 +22,10 @@ public class GameSaveData
         letter = new bool[5];
     }
 
-    public GameSaveData(float[] charaPosi, bool[] jewelry, bool[] letter)
+    public GameSaveData(string initialScene,float[] charaPosi, bool[] jewelry, bool[] letter)
     {
+        this.initialScene = initialScene;
+
         this.charaPosi = charaPosi;
 
         this.jewelry = jewelry;
@@ -31,7 +37,7 @@ public class GameSaveData
 [CreateAssetMenu(fileName = "GameSave", menuName = "System Data/Game Save", order = 1)]
 public class GameSave : ScriptableObject
 {
-    public string loadFile;
+    public string loadFile, initialScene;
 
     public float[] charaPosi;
 
@@ -42,6 +48,7 @@ public class GameSave : ScriptableObject
     public GameSave() 
     {
         loadFile = "";
+        initialScene = "開頭";
         charaPosi = new float[3];
 
         charaPosi[0] = 0;
@@ -53,9 +60,12 @@ public class GameSave : ScriptableObject
         letter = new bool[5];
     }
 
-    public GameSave(string loadFile, float[] charaPosi, bool[] jewelry, bool[] letter)
+    public GameSave(string loadFile,string initialScene, float[] charaPosi, bool[] jewelry, bool[] letter)
     {
         this.loadFile = loadFile;
+
+        this.initialScene = initialScene;
+
         this.charaPosi = charaPosi;
 
         this.jewelry = jewelry;
@@ -66,6 +76,8 @@ public class GameSave : ScriptableObject
     public void FoundNoSave(string loadFile) 
     {
         this.loadFile = loadFile;
+        initialScene = "開頭";
+
         charaPosi = new float[3];
 
         charaPosi[0] = 14f;
@@ -77,9 +89,12 @@ public class GameSave : ScriptableObject
         letter = new bool[5];
     }
 
-    public void FoundSave(string loadFile, float[] charaPosi, bool[] jewelry, bool[] letter)
+    public void FoundSave(string loadFile, string initialScene, float[] charaPosi, bool[] jewelry, bool[] letter)
     {
         this.loadFile = loadFile;
+
+        this.initialScene = initialScene;
+
         this.charaPosi = charaPosi;
 
         this.jewelry = jewelry;

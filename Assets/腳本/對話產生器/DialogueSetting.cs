@@ -76,7 +76,7 @@ public class DialogueSetting : MonoBehaviour
         {
             foreach (Sentence sentence in _dialogue.sentences) 
             {
-                Sentence temp = new Sentence(sentence.type, sentence.id, sentence.chara, 0, sentence.dialogue);
+                Sentence temp = new Sentence(sentence.type, sentence.id, sentence.chara, 0, sentence.dialogue, sentence.backGroundImage, sentence.sprite, sentence.ImageID);
                 
                 sentences.Add(temp);
 
@@ -173,6 +173,21 @@ public class DialogueSetting : MonoBehaviour
         waitForCheck.chara = _nowChara;
     }
 
+    public void DisplayBackGround(bool newValue) 
+    {
+        waitForCheck.backGroundImage = newValue;
+    }
+
+    public void DisplayCG(bool newValue) 
+    {
+        waitForCheck.sprite = newValue;
+    }
+
+    public void SetImageID(string newValue) 
+    {
+        waitForCheck.ImageID = System.Convert.ToInt32(newValue);
+    }
+
     public void DialogueInput(string dialogue) 
     {
         waitForCheck.dialogue = dialogue;
@@ -235,7 +250,7 @@ public class DialogueSetting : MonoBehaviour
 
         for (int i = 0; i < sentences.Count; i++)
         {
-            Sentence temp = new Sentence(sentences[i].type, sentences[i].id, sentences[i].chara, 0, sentences[i].dialogue);
+            Sentence temp = new Sentence(sentences[i].type, sentences[i].id, sentences[i].chara, 0, sentences[i].dialogue, sentences[i].backGroundImage, sentences[i].sprite, sentences[i].ImageID);
 
             newSentences[i] = temp;
         }

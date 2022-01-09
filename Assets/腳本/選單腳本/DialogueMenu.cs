@@ -35,5 +35,9 @@ public class DialogueMenu : MonoBehaviour
         FindObjectOfType<DialogueManager>().Skip();
     }
 
-    public void LogButton() { Debug.Log("Log is not ready."); }
+    public void LogButton() 
+    {
+        //Debug.Log("Log is not ready."); 
+        FindObjectOfType<DialogueManager>().SetLogText();
+    }
 }

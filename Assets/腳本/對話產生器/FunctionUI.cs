@@ -15,6 +15,9 @@ public class FunctionUI : MonoBehaviour
     public Dropdown _charaSelect;           //人物種類選項
     public InputField _sentencID;           //對話編號輸入欄
     public InputField _sentenceInput;       //對話輸入欄
+    public Toggle _backGround;
+    public Toggle _sprite;
+    public InputField _ImageID;
     public int select = 0;                  //功能選擇 1.新增 2.插入 3.編輯 4.刪除 5.儲存
 
     #endregion
@@ -73,6 +76,9 @@ public class FunctionUI : MonoBehaviour
         _sentencID.interactable = true;
         _charaSelect.interactable = true;
         _sentenceInput.interactable = true;
+        _backGround.interactable = true;
+        _sprite.interactable = true;
+        _ImageID.interactable = true;
 
         if(select == 1)
         {
@@ -83,6 +89,9 @@ public class FunctionUI : MonoBehaviour
             _eventSelect.interactable = false;
             _charaSelect.interactable = false;
             _sentenceInput.interactable = false;
+            _backGround.interactable = false;
+            _sprite.interactable = false;
+            _ImageID.interactable = false;
         }
     }
 

@@ -21,6 +21,13 @@ public class PreviewContent : MonoBehaviour
         PreviewText();
     }
 
+    public void SetSimpleContent(Sentence sentence)
+    {
+        _content = new Sentence(sentence.type, sentence.id, sentence.chara, sentence.isRead, sentence.dialogue);
+
+        PreviewSimpleText();
+    }
+
     #endregion
 
     #region 文本格式建立及填充
@@ -36,6 +43,18 @@ public class PreviewContent : MonoBehaviour
         string preview = _content.id + " " + dialogueType[_content.type] + " " + name + "\n" + _content.dialogue;
 
         _text.text =  preview;
+    }
+
+    public void PreviewSimpleText() 
+    {
+        string name;
+     
+        if (_content.chara == 0) { name = "旁白"; }
+        else { name = FindObjectOfType<ScrollList>().charas[_content.chara].name; }
+
+        string preview = name + "\n" + _content.dialogue;
+
+        _text.text = preview;
     }
 
     #endregion

@@ -12,6 +12,10 @@ public class Sentence
         chara = 0;
         isRead = 0;
         dialogue = "";
+
+        backGroundImage = false;
+        sprite = false;
+        ImageID = 0;
     }
 
     public Sentence(int type, int id, int chara, int isRead, string dialogue) 
@@ -21,6 +25,23 @@ public class Sentence
         this.chara = chara;
         this.isRead = isRead;
         this.dialogue = dialogue;
+
+        backGroundImage = false;
+        sprite = false;
+        ImageID = 0;
+    }
+
+    public Sentence(int type, int id, int chara, int isRead, string dialogue, bool backGroundImage, bool sprite, int ImageID)
+    {
+        this.type = type;
+        this.id = id;
+        this.chara = chara;
+        this.isRead = isRead;
+        this.dialogue = dialogue;
+
+        this.backGroundImage = backGroundImage;
+        this.sprite = sprite;
+        this.ImageID = ImageID;
     }
 
     public int id;
@@ -28,6 +49,10 @@ public class Sentence
     public int chara;
     public int isRead;
     public string dialogue;
+
+    public bool backGroundImage;
+    public bool sprite;
+    public int ImageID;
 }
 
 #endregion
