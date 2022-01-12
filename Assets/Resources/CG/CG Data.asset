@@ -61,3 +61,7 @@ MonoBehaviour:
     id: 11
     used: 1
     sprite: {fileID: 21300000, guid: 9527c2eb77cd4624a9edd0369ac90724, type: 3}
+  - page: 0
+    id: 12
+    used: 1
+    sprite: {fileID: 21300000, guid: efccbb4f154ae80418a1b2d589561fb3, type: 3}
