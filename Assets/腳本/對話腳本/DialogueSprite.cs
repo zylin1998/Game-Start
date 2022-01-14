@@ -15,7 +15,7 @@ public class DialogueSprite : MonoBehaviour
 
     public void SetCharaSprite(List<Chara> charas) {
 
-        _outputCharaSprites = new CharaSprite[charas.Count - 1];
+        _outputCharaSprites = new CharaSprite[3];//charas.Count - 1
 
         int count = 0;
         foreach (Chara chara in charas) 
@@ -39,11 +39,13 @@ public class DialogueSprite : MonoBehaviour
     {
         for(int i = 0; i < _outputCharaSprites.Length; i++) 
         {
+
+
             if (i == (_isSpeakChara - 1)) { 
                 _outputCharaSprites[i]._isSpeak = true;
                 _outputCharaSprites[i].IsSpeak();
             }
-            else { 
+            else if(i < 3 && i != (_isSpeakChara - 1)) { 
                 _outputCharaSprites[i]._isSpeak = false;
                 _outputCharaSprites[i].NonSpeak();
             }

@@ -10,6 +10,9 @@ public class ItemPickup : MonoBehaviour
     public GameObject _target;
     [Header("物品")]
     public Item _item;
+    [Header("是否觸發對話")]
+    public bool _hasDialogue;
+    public string _dialogueID;
 
     private void OnTriggerStay(Collider collider)
     {
@@ -24,6 +27,12 @@ public class ItemPickup : MonoBehaviour
             {
                 _hint.SetActive(false);
                 GameObject.Find("事件管理").GetComponent<EventManager>().ItemPickUp(_target);
+
+                if (_hasDialogue) 
+                {
+                    FindObjectOfType<DialogueTrigger>()._dialogueID = _dialogueID;
+                    FindObjectOfType<DialogueTrigger>().TriggerDialogue();
+                }
             }
         }
 
