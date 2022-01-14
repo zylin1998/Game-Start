@@ -62,6 +62,8 @@ MonoBehaviour:
   _text: {fileID: 0}
   _target: {fileID: 6231245987124825835}
   _item: {fileID: 11400000, guid: 6caea9dd8991d2d498139e07c781b8a0, type: 2}
+  _hasDialogue: 1
+  _dialogueID: 0005
 --- !u!1 &6231245987124825835
 GameObject:
   m_ObjectHideFlags: 0

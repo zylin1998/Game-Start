@@ -158,3 +158,5 @@ MonoBehaviour:
   _text: {fileID: 0}
   _target: {fileID: 7008824434561929863}
   _item: {fileID: 11400000, guid: a652b73283df16f40b551b9731aa318c, type: 2}
+  _hasDialogue: 1
+  _dialogueID: 0004
