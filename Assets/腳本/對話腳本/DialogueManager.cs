@@ -84,9 +84,17 @@ public class DialogueManager : MonoBehaviour
         Sentence sentence = _sentences.Dequeue();
         _log.Add(sentence);
 
-        if (sentence.backGroundImage) 
+        if (sentence.backGroundImage && !sentence.sprite) 
+        {
+            FindObjectOfType<DialogueBoxController>().CGMode(sentence);
+        }
+        else if (sentence.backGroundImage && sentence.sprite)
         {
             FindObjectOfType<DialogueBoxController>().BackGroundMode(sentence);
+        }
+        else if (!sentence.backGroundImage && sentence.sprite)
+        {
+            FindObjectOfType<DialogueBoxController>().NormalizedMode(sentence);
         }
 
         _isSpeakChara = sentence.chara;

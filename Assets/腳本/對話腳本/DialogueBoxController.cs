@@ -28,6 +28,16 @@ public class DialogueBoxController : MonoBehaviour
         _backGroundImage.GetComponent<Image>().color = new Vector4(0, 0, 0, 145/255f);
     }
 
+    public void CGMode(Sentence sentence) 
+    {
+        Image image = _backGroundImage.GetComponent<Image>();
+
+        image.sprite = _cGData.CGs[sentence.ImageID].sprite;
+        image.color = new Vector4(1, 1, 1, 1);
+
+        _charaSprite.SetActive(false);
+    }
+
     public void BackGroundMode(Sentence sentence)
     {
         Image image = _backGroundImage.GetComponent<Image>();
@@ -35,8 +45,17 @@ public class DialogueBoxController : MonoBehaviour
         image.sprite = _cGData.CGs[sentence.ImageID].sprite;
         image.color = new Vector4(1, 1, 1, 1);
 
-        if (!sentence.sprite) { _charaSprite.SetActive(false); }
-        else { _charaSprite.SetActive(true); }
+        _charaSprite.SetActive(true);
+    }
+
+    public void NormalizedMode(Sentence sentence) 
+    {
+        Image image = _backGroundImage.GetComponent<Image>();
+
+        image.sprite = null;
+        image.color = new Vector4(0, 0, 0, 145 / 255f);
+
+        _charaSprite.SetActive(true);
     }
 
     public void BoxClicked() 

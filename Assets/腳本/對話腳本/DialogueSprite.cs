@@ -39,8 +39,6 @@ public class DialogueSprite : MonoBehaviour
     {
         for(int i = 0; i < _outputCharaSprites.Length; i++) 
         {
-
-
             if (i == (_isSpeakChara - 1)) { 
                 _outputCharaSprites[i]._isSpeak = true;
                 _outputCharaSprites[i].IsSpeak();
