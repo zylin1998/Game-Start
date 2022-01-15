@@ -51,6 +51,8 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(string ID) 
     {
+        Cursor.lockState = CursorLockMode.Confined;
+
         _fileName = "Dialogue" + ID;
         _ID = System.Convert.ToInt32(ID);
 

@@ -10,6 +10,8 @@ public class StartMenuManager : MonoBehaviour
 
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.Confined;
+
         _settingAnimator.GetComponent<Animator>();
     }
 

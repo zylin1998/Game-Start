@@ -13,6 +13,7 @@ public class ThirdPersonMovement : MonoBehaviour
     public float targetSpeed;
     public Vector3 velocity;
 
+    [Range(-30,-5)]
     public float gravity = -9.81f;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
@@ -143,6 +144,6 @@ public class ThirdPersonMovement : MonoBehaviour
     {
         if(_cusorLockState) { Cursor.lockState = CursorLockMode.Locked; }
 
-        else { Cursor.lockState = CursorLockMode.None; }
+        else { Cursor.lockState = CursorLockMode.Confined; }
     }
 }

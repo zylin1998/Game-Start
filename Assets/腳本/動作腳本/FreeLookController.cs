@@ -5,7 +5,7 @@ public class FreeLookController : MonoBehaviour
 {
     public CinemachineFreeLook _cinemachineFreeLook;
     
-    void Start()
+    void Awake()
     {
         _cinemachineFreeLook.GetComponent<CinemachineFreeLook>();
     }

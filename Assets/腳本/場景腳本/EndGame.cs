@@ -10,6 +10,8 @@ public class EndGame : MonoBehaviour
 
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.Confined;
+
         if(_endEvent == null) { _endEvent = new UnityEvent(); }
 
         _endEvent.AddListener(EndPage);
@@ -19,13 +21,18 @@ public class EndGame : MonoBehaviour
     {
         if (!FindObjectOfType<DialogueManager>()._dialogueMode) { _endEvent.Invoke(); }
 
-        if(_isEnd && Input.anyKeyDown) { DelayTitleScene(); }
+        if(_isEnd) { CheckKeyPress(); }
     }
 
     public void EndPage() 
     {
         _endPage.SetActive(true);
         _isEnd = true;
+    }
+
+    private void CheckKeyPress() 
+    {
+        if (Input.anyKey) { DelayTitleScene(); }
     }
 
     public void DelayTitleScene()

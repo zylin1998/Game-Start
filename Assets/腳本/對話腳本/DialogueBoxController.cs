@@ -10,7 +10,7 @@ public class DialogueBoxController : MonoBehaviour
 
     public static CGData _cGData;
 
-    private void Start()
+    private void Awake()
     {
         _animator.GetComponent<Animator>();
         _backGroundImage.SetActive(false);

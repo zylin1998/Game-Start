@@ -20,7 +20,7 @@ public class InventoryUI : MonoBehaviour
     private InventorySlot[] _ballSlots;
     private SlotWithName[] _letterSlots;
 
-    private void Start()
+    private void Awake()
     {
         _inventory = Inventory.instance;
         _inventory.OnItemChangedCallback += UpdateUI;
