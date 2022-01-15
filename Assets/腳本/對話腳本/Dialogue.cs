@@ -10,7 +10,7 @@ public class Sentence
         type = 0;
         type = 0;
         chara = 0;
-        isRead = 0;
+        isRead = false;
         dialogue = "";
 
         backGroundImage = false;
@@ -18,7 +18,7 @@ public class Sentence
         ImageID = 0;
     }
 
-    public Sentence(int type, int id, int chara, int isRead, string dialogue) 
+    public Sentence(int type, int id, int chara, bool isRead, string dialogue) 
     {
         this.type = type;
         this.id = id;
@@ -31,7 +31,7 @@ public class Sentence
         ImageID = 0;
     }
 
-    public Sentence(int type, int id, int chara, int isRead, string dialogue, bool backGroundImage, bool sprite, int ImageID)
+    public Sentence(int type, int id, int chara, bool isRead, string dialogue, bool backGroundImage, bool sprite, int ImageID)
     {
         this.type = type;
         this.id = id;
@@ -47,7 +47,7 @@ public class Sentence
     public int id;
     public int type;
     public int chara;
-    public int isRead;
+    public bool isRead;
     public string dialogue;
 
     public bool backGroundImage;

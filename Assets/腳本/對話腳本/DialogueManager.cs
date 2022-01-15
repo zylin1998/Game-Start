@@ -27,14 +27,19 @@ public class DialogueManager : MonoBehaviour
     public Queue<Sentence> _sentences;
     public List<Sentence> _log;
 
+    public Text _imageMode;
+
+    [SerializeField] private string _fileName;
+    [SerializeField] private int _ID;
+
     #endregion
 
     #region 事件
 
     private void Awake()
     {
-        if(_textSetting == null) { _textSetting = (TextSetting)Resources.Load(Path.Combine("設定檔", "Text Setting"), typeof(TextSetting)); }
-        if (_dialogue == null) { _dialogue = (Dialogue)Resources.Load(Path.Combine("對話資料", "Dialogue"), typeof(Dialogue)); }
+        if(_textSetting == null) { _textSetting = Resources.Load<TextSetting>(Path.Combine("設定檔", "Text Setting")); }
+        if (_dialogue == null) { _dialogue = Resources.Load<Dialogue>(Path.Combine("對話資料", "Dialogue")); }
 
         _sentences = new Queue<Sentence>();
         _log = new List<Sentence>();
@@ -44,11 +49,12 @@ public class DialogueManager : MonoBehaviour
 
     #region 對話初始化
 
-    public void StartDialogue(string ID) {
+    public void StartDialogue(string ID) 
+    {
+        _fileName = "Dialogue" + ID;
+        _ID = System.Convert.ToInt32(ID);
 
-        //_dialogue = (Dialogue)Resources.Load(Path.Combine("對話資料", "Dialogue" + ID), typeof(Dialogue));
-
-        GetFileName("Dialogue" + ID);
+        GetFileName(_fileName);
 
         _dialogueMode = true;
         FindObjectOfType<DialogueBoxController>().DialogueState(true);
@@ -86,14 +92,17 @@ public class DialogueManager : MonoBehaviour
 
         if (sentence.backGroundImage && !sentence.sprite) 
         {
+            _imageMode.text = "1";
             FindObjectOfType<DialogueBoxController>().CGMode(sentence);
         }
         else if (sentence.backGroundImage && sentence.sprite)
         {
+            _imageMode.text = "2";
             FindObjectOfType<DialogueBoxController>().BackGroundMode(sentence);
         }
         else if (!sentence.backGroundImage && sentence.sprite)
         {
+            _imageMode.text = "3";
             FindObjectOfType<DialogueBoxController>().NormalizedMode(sentence);
         }
 
@@ -101,6 +110,8 @@ public class DialogueManager : MonoBehaviour
         _nameText.text = _charas[_isSpeakChara].name;
         FindObjectOfType<DialogueSprite>().DispalySprites(_isSpeakChara);
 
+        _dialogue.sentences[sentence.id].isRead = true;
+        
         if (_skipMode) { SkipModeTypeSentence(sentence.dialogue); }
 
         else if (!_skipMode)
@@ -171,14 +182,22 @@ public class DialogueManager : MonoBehaviour
 
     #region 結束對話
 
-    public void EndDialogue() {
-
+    public void EndDialogue() 
+    {
         _dialogueMode = false;
 
         _skipMode = false;
 
         FindObjectOfType<DialogueBoxController>().DialogueState(false);
 
+        if (FindObjectOfType<EventManager>() != null) 
+        {
+            FindObjectOfType<EventManager>().SetReadDialogue(_ID); 
+        }
+
+        DialogueData dialogueData = new DialogueData(_dialogue.charas, _dialogue.sentences);
+
+        SaveSystem.SaveDialogueData(_fileName, dialogueData);
     }
 
     #endregion
@@ -193,7 +212,7 @@ public class DialogueManager : MonoBehaviour
 
     #region 開啟對話資料
 
-    private void GetFileName(string fileName)
+    public void GetFileName(string fileName)
     {
         string path = Path.Combine("DialogueData", fileName);
 
@@ -209,7 +228,6 @@ public class DialogueManager : MonoBehaviour
             Debug.Log("File Not Found.");
             EndDialogue();
         }
-
     }
 
     #endregion

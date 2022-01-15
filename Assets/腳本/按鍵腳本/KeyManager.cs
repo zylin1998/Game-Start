@@ -17,7 +17,7 @@ public class KeyManager : MonoBehaviour
 
     private void Start()
     {
-        if (_actions == null) { _actions = (KeyConfig)Resources.Load(System.IO.Path.Combine("設定檔", "Keys"), typeof(KeyConfig)); }
+        if (_actions == null) { _actions = Resources.Load<KeyConfig>(System.IO.Path.Combine("設定檔", "Keys")); }
     }
 
     private void Update()

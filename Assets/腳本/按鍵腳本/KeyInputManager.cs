@@ -17,7 +17,7 @@ public class KeyInputManager : MonoBehaviour
     void Start()
     {
         _inputFeilds = _keyParent.GetComponentsInChildren<KeyInputFeild>();
-        if (_actions == null) { _actions = (KeyConfig)Resources.Load(System.IO.Path.Combine("設定檔", "Keys"), typeof(KeyConfig)); }
+        if (_actions == null) { _actions = Resources.Load<KeyConfig>(System.IO.Path.Combine("設定檔", "Keys")); }
 
         KeyInitialize();
     }

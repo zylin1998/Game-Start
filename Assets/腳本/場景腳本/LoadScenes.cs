@@ -12,7 +12,7 @@ public class LoadScenes : MonoBehaviour
 
     private void Start()
     {
-        if(_targetScene == null) { _targetScene = (TargetScene)Resources.Load(System.IO.Path.Combine("過場資料","Target Scene"),typeof(TargetScene)); }
+        if(_targetScene == null) { _targetScene = Resources.Load<TargetScene>(System.IO.Path.Combine("過場資料","Target Scene")); }
     }
 
     public void LoadNewScene(string sceneName) 

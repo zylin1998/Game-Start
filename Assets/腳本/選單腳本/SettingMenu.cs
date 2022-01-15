@@ -16,7 +16,7 @@ public class SettingMenu : MonoBehaviour
     {
         string[] _buttonText = { "按鍵設定", "系統設定" };
         string temp;
-        Debug.Log("Coming Soon");
+        //Debug.Log("Coming Soon");
         select = !select;
         _basicSetting.SetActive(!_basicSetting.activeSelf);
         _keySetting.SetActive(!_keySetting.activeSelf);

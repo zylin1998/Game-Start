@@ -13,7 +13,7 @@ public class ScreenMenu : MonoBehaviour
 
     private void Start()
     {
-        if (_screenSetting == null) { _screenSetting = (ScreenSetting)Resources.Load(System.IO.Path.Combine("設定檔", "Screen Setting"), typeof(ScreenSetting)); }
+        if (_screenSetting == null) { _screenSetting = Resources.Load<ScreenSetting>(System.IO.Path.Combine("設定檔", "Screen Setting")); }
 
         Initialized();
     }

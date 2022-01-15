@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class EventManager : MonoBehaviour
 {
+    #region 公開欄位
+
     public static GameSave _gameSave;
     public static TargetScene _targetScene;
 
@@ -15,6 +17,10 @@ public class EventManager : MonoBehaviour
     public GameObject _hint;
     public Text _text;
 
+    #endregion
+
+    #region 私人欄位
+
     [Header("生成物件")]
     [SerializeField] private GameObject[] _jewelrySet;
     [SerializeField] private GameObject[] _letterSet;
@@ -22,35 +28,36 @@ public class EventManager : MonoBehaviour
     [Header("儲存資料")]
     [SerializeField] private GameSaveData _gameSaveData;
 
-    private int _jewelryCount;
-    private int _letterCount;
+    [SerializeField] private int _jewelryCount = 0;
+    [SerializeField] private int _letterCount = 0;
 
-    private void Start()
+    #endregion
+
+    #region 事件
+
+    private void Awake()
     {
-        _gameSave = (GameSave)Resources.Load(System.IO.Path.Combine("設定檔", "GameSave"), typeof(GameSave));
-        if (_targetScene == null) { _targetScene = (TargetScene)Resources.Load(System.IO.Path.Combine("過場資料", "Target Scene"), typeof(TargetScene)); }
+        _gameSave = Resources.Load<GameSave>(System.IO.Path.Combine("設定檔", "GameSave"));
+        if (_targetScene == null) { _targetScene = Resources.Load<TargetScene>(System.IO.Path.Combine("過場資料", "Target Scene")); }
 
         Initialized();
     }
 
-    private void Update()
-    {
-        if (_gameSaveData.letter[4]) { /*結束遊戲*/ }
-    }
+    #endregion
+
+    #region 初始化
 
     private void Initialized() 
     {
         GameObject.Find("翡翠").transform.position = new Vector3(_gameSave.charaPosi[0], _gameSave.charaPosi[1], _gameSave.charaPosi[2]);
 
-        _jewelryCount = _gameSave.jewelry.Length;
-        _letterCount = _gameSave.letter.Length;
+        _jewelrySet = new GameObject[_gameSave.jewelry.Length];
+        _letterSet = new GameObject[_gameSave.letter.Length];
 
-        _jewelrySet = new GameObject[_jewelryCount];
-        _letterSet = new GameObject[_letterCount];
-
-        for (int i = 0;i < _jewelryCount; i++) 
+        for (int i = 0;i < _gameSave.jewelry.Length; i++) 
         {
-            if (!_gameSave.jewelry[i]) { 
+            if (!_gameSave.jewelry[i])
+            {
                 GameObject gameObject = Instantiate(_jewelry[i], _jewelry[i].transform.position, _jewelry[i].transform.rotation, _itemParent);
                 gameObject.name = _jewelry[i].name;
                 ItemPickup itemPickup = gameObject.GetComponentInChildren<ItemPickup>();
@@ -58,13 +65,16 @@ public class EventManager : MonoBehaviour
                 itemPickup._text = _text;
                 _jewelrySet[i] = gameObject;
             }
-            else 
+            else
             {
                 Inventory.instance.Add(_jewelry[i].GetComponentInChildren<ItemPickup>()._item);
+                _jewelryCount++;
+                if (_jewelryCount == 2) { GameObject.Find("二樓暗門").GetComponentInChildren<RoomDoorTriggrt>().SecretDoorTrigger(); }
+                if (_jewelryCount == 3) { GameObject.Find("一樓暗門").GetComponentInChildren<RoomDoorTriggrt>().SecretDoorTrigger(); }
             }
         }
 
-        for (int i = 0; i < _letterCount; i++)
+        for (int i = 0; i < _gameSave.letter.Length; i++)
         {
             if (!_gameSave.letter[i])
             {
@@ -78,11 +88,38 @@ public class EventManager : MonoBehaviour
             else
             {
                 Inventory.instance.Add(_letter[i].GetComponentInChildren<ItemPickup>()._item);
+                _letterCount++;
             }
         }
 
         _gameSave.initialScene = _targetScene._sceneName;
     }
+
+    #endregion
+
+    #region 對話以讀確認
+
+    public void SetReadDialogue(int isRead) 
+    {
+        if (isRead == 7) { DelayFinalScene(); }
+
+        _gameSave.isDialogueRead[isRead - 1] = true;
+
+        _gameSaveData = new GameSaveData(_gameSave.initialScene, _gameSave.isDialogueRead, _gameSave.charaPosi, _gameSave.jewelry, _gameSave.letter);
+
+        SaveSystem.SaveGameSaveData(_gameSave.loadFile, _gameSaveData);
+    }
+
+    public bool GetReadDialogue(int isRead)
+    {
+        Debug.Log(_gameSave.isDialogueRead[isRead - 1]);
+
+        return _gameSave.isDialogueRead[isRead - 1];
+    }
+
+    #endregion
+
+    #region 拾取物件
 
     public void ItemPickUp(GameObject gameObject) 
     {
@@ -102,7 +139,20 @@ public class EventManager : MonoBehaviour
                 }
             }
 
-            _jewelryCount--;
+            _jewelryCount++;
+
+            if(_jewelryCount == 2) 
+            {
+                FindObjectOfType<DialogueTrigger>()._dialogueID = "0011";
+                FindObjectOfType<DialogueTrigger>().TriggerDialogue();
+                GameObject.Find("二樓暗門").GetComponentInChildren<RoomDoorTriggrt>().SecretDoorTrigger();
+            }
+            else if (_jewelryCount == 3)
+            {
+                FindObjectOfType<DialogueTrigger>()._dialogueID = "0012";
+                FindObjectOfType<DialogueTrigger>().TriggerDialogue();
+                GameObject.Find("一樓暗門").GetComponentInChildren<RoomDoorTriggrt>().SecretDoorTrigger();
+            }
         }
 
         else if (item._type.Equals("Letter")) 
@@ -119,7 +169,7 @@ public class EventManager : MonoBehaviour
                 }
             }
 
-            _letterCount--;
+            _letterCount++;
         }
 
         _gameSave.initialScene = _targetScene._sceneName;
@@ -128,12 +178,26 @@ public class EventManager : MonoBehaviour
         _gameSave.charaPosi[1] = GameObject.Find("翡翠").transform.position.y;
         _gameSave.charaPosi[2] = GameObject.Find("翡翠").transform.position.z;
 
-        _gameSaveData = new GameSaveData(_gameSave.initialScene, _gameSave.charaPosi, _gameSave.jewelry, _gameSave.letter);
+        _gameSaveData = new GameSaveData(_gameSave.initialScene, _gameSave.isDialogueRead, _gameSave.charaPosi, _gameSave.jewelry, _gameSave.letter);
 
         SaveSystem.SaveGameSaveData(_gameSave.loadFile, _gameSaveData);
 
-        Debug.Log("Data Saved.");
+        //Debug.Log("Data Saved.");
 
         Destroy(gameObject);
+    }
+
+    #endregion
+
+    private void DelayFinalScene() 
+    {
+        Invoke("FinalScene", 0.5f);
+    }
+
+    private void FinalScene() 
+    {
+        LoadScenes._targetScene._sceneName = "結尾";
+        FindObjectOfType<LoadScenes>().LoadNewScene("過場畫面");
+        FindObjectOfType<LoadScenes>()._asyncload.allowSceneActivation = true;
     }
 }

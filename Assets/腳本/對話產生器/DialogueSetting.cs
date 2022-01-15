@@ -76,7 +76,7 @@ public class DialogueSetting : MonoBehaviour
         {
             foreach (Sentence sentence in _dialogue.sentences) 
             {
-                Sentence temp = new Sentence(sentence.type, sentence.id, sentence.chara, 0, sentence.dialogue, sentence.backGroundImage, sentence.sprite, sentence.ImageID);
+                Sentence temp = new Sentence(sentence.type, sentence.id, sentence.chara, false, sentence.dialogue, sentence.backGroundImage, sentence.sprite, sentence.ImageID);
                 
                 sentences.Add(temp);
 
@@ -205,7 +205,7 @@ public class DialogueSetting : MonoBehaviour
 
         else if(select == 4) { RemoveSentence(); }
 
-        waitForCheck = new Sentence(_nowType,_nowID, _nowChara, 0, "");
+        waitForCheck = new Sentence(_nowType,_nowID, _nowChara, false, "");
     }
 
     #endregion
@@ -250,7 +250,7 @@ public class DialogueSetting : MonoBehaviour
 
         for (int i = 0; i < sentences.Count; i++)
         {
-            Sentence temp = new Sentence(sentences[i].type, sentences[i].id, sentences[i].chara, 0, sentences[i].dialogue, sentences[i].backGroundImage, sentences[i].sprite, sentences[i].ImageID);
+            Sentence temp = new Sentence(sentences[i].type, sentences[i].id, sentences[i].chara, false, sentences[i].dialogue, sentences[i].backGroundImage, sentences[i].sprite, sentences[i].ImageID);
 
             newSentences[i] = temp;
         }

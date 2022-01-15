@@ -31,4 +31,9 @@ public class RoomDoorTriggrt : MonoBehaviour
         _hint.SetActive(false);
         _isOpened = false;
     }
+
+    public void SecretDoorTrigger() 
+    {
+        _animator.SetBool("isOpen", true);
+    }
 }

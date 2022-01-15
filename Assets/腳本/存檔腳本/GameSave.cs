@@ -7,6 +7,8 @@ public class GameSaveData
 
     public float[] charaPosi;
 
+    public bool[] isDialogueRead;
+
     public bool[] jewelry;
 
     public bool[] letter;
@@ -17,16 +19,20 @@ public class GameSaveData
 
         charaPosi = new float[3];
 
+        isDialogueRead = new bool[12];
+
         jewelry = new bool[3];
 
         letter = new bool[5];
     }
 
-    public GameSaveData(string initialScene,float[] charaPosi, bool[] jewelry, bool[] letter)
+    public GameSaveData(string initialScene, bool[] isDialogueRead,float[] charaPosi, bool[] jewelry, bool[] letter)
     {
         this.initialScene = initialScene;
 
         this.charaPosi = charaPosi;
+
+        this.isDialogueRead = isDialogueRead;
 
         this.jewelry = jewelry;
 
@@ -40,6 +46,8 @@ public class GameSave : ScriptableObject
     public string loadFile, initialScene;
 
     public float[] charaPosi;
+
+    public bool[] isDialogueRead;
 
     public bool[] jewelry;
     
@@ -55,18 +63,22 @@ public class GameSave : ScriptableObject
         charaPosi[1] = 0;
         charaPosi[2] = 0;
 
+        isDialogueRead = new bool[12];
+
         jewelry = new bool[3];
 
         letter = new bool[5];
     }
 
-    public GameSave(string loadFile,string initialScene, float[] charaPosi, bool[] jewelry, bool[] letter)
+    public GameSave(string loadFile,string initialScene, bool[] isDialogueRead, float[] charaPosi, bool[] jewelry, bool[] letter)
     {
         this.loadFile = loadFile;
 
         this.initialScene = initialScene;
 
         this.charaPosi = charaPosi;
+
+        this.isDialogueRead = isDialogueRead;
 
         this.jewelry = jewelry;
 
@@ -84,18 +96,22 @@ public class GameSave : ScriptableObject
         charaPosi[1] = 0.5f;
         charaPosi[2] = -16f;
 
+        isDialogueRead = new bool[12];
+
         jewelry = new bool[3];
 
         letter = new bool[5];
     }
 
-    public void FoundSave(string loadFile, string initialScene, float[] charaPosi, bool[] jewelry, bool[] letter)
+    public void FoundSave(string loadFile, string initialScene, bool[] isDialogueRead, float[] charaPosi, bool[] jewelry, bool[] letter)
     {
         this.loadFile = loadFile;
 
         this.initialScene = initialScene;
 
         this.charaPosi = charaPosi;
+
+        this.isDialogueRead = isDialogueRead;
 
         this.jewelry = jewelry;
 

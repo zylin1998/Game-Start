@@ -10,7 +10,7 @@ public class CrossScene : MonoBehaviour
 
     private void Start()
     {
-        if (_targetScene == null) { _targetScene = (TargetScene)Resources.Load(System.IO.Path.Combine("過場資料", "Target Scene"), typeof(TargetScene)); }
+        if (_targetScene == null) { _targetScene = Resources.Load< TargetScene>(System.IO.Path.Combine("過場資料", "Target Scene")); }
         _loadScenes.LoadNewScene(_targetScene._sceneName);
     }
 

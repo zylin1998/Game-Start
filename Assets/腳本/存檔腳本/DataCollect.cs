@@ -84,10 +84,10 @@ public class DataCollect : MonoBehaviour
 
     private void Start()
     {
-        if (_screenSetting == null) { _screenSetting = (ScreenSetting)Resources.Load(Path.Combine("設定檔", "Screen Setting"), typeof(ScreenSetting)); }
-        if (_textSetting == null) { _textSetting = (TextSetting)Resources.Load(Path.Combine("設定檔", "Text Setting"), typeof(TextSetting)); }
-        if (_volumeSetting == null) { _volumeSetting = (VolumeSetting)Resources.Load(Path.Combine("設定檔", "Volume Setting"), typeof(VolumeSetting)); }
-        if (_keys == null) { _keys = (KeyConfig)Resources.Load(Path.Combine("設定檔", "keys"), typeof(KeyConfig)); }
+        if (_screenSetting == null) { _screenSetting = Resources.Load<ScreenSetting>(Path.Combine("設定檔", "Screen Setting")); }
+        if (_textSetting == null) { _textSetting = Resources.Load<TextSetting>(Path.Combine("設定檔", "Text Setting")); }
+        if (_volumeSetting == null) { _volumeSetting = Resources.Load<VolumeSetting>(Path.Combine("設定檔", "Volume Setting")); }
+        if (_keys == null) { _keys = Resources.Load<KeyConfig>(Path.Combine("設定檔", "keys")); }
 
         SystemInitialized();
     }

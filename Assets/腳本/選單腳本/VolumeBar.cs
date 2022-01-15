@@ -12,7 +12,7 @@ public class VolumeBar : MonoBehaviour
 
     private void Start()
     {
-        if (_volumeSetting == null) { _volumeSetting = (VolumeSetting)Resources.Load(System.IO.Path.Combine("設定檔", "Volume Setting"), typeof(VolumeSetting)); }
+        if (_volumeSetting == null) { _volumeSetting = Resources.Load<VolumeSetting>(System.IO.Path.Combine("設定檔", "Volume Setting")); }
     }
 
     public void MainBar(float value)

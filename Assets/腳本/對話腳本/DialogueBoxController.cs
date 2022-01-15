@@ -58,6 +58,14 @@ public class DialogueBoxController : MonoBehaviour
         _charaSprite.SetActive(true);
     }
 
+    public void ErrorBackGround(Sentence sentence) 
+    {
+        Image image = _backGroundImage.GetComponent<Image>();
+
+        image.sprite = null;
+        image.color = Color.blue;
+    }
+
     public void BoxClicked() 
     {
         FindObjectOfType<DialogueManager>().DisplayNextSentence();

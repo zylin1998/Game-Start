@@ -16,7 +16,7 @@ public class TextMenu : MonoBehaviour
 
     private void Start()
     {
-        if (_textSetting == null) { _textSetting = (TextSetting)Resources.Load(System.IO.Path.Combine("設定檔", "Text Setting"), typeof(TextSetting)); }
+        if (_textSetting == null) { _textSetting = Resources.Load<TextSetting>(System.IO.Path.Combine("設定檔", "Text Setting")); }
 
         Initialized();
     }

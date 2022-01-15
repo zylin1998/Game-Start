@@ -22,7 +22,7 @@ public class GalleryMenu : MonoBehaviour
         _cGButton = _cGParent.GetComponentsInChildren<Button>();
         _nowCG = _cGDisplay.GetComponent<Image>();
 
-        if(_cGData == null) { _cGData = (CGData)Resources.Load(System.IO.Path.Combine("CG", "CG Data"), typeof(CGData)); }
+        if(_cGData == null) { _cGData = Resources.Load<CGData>(System.IO.Path.Combine("CG", "CG Data")); }
         
         Initialized();
     }

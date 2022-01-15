@@ -84,6 +84,21 @@ public static class SaveSystem
 
     #region 對話資訊
 
+    public static void SaveDialogueData(string fileName, DialogueData data)
+    {
+        string path = Path.Combine(Application.dataPath, "DialogueData");
+
+        DirectoryInfo saveDir = new DirectoryInfo(path);
+
+        if (!saveDir.Exists) { saveDir.Create(); }
+
+        BinaryFormatter formatter = new BinaryFormatter();
+        FileStream stream = new FileStream(Path.Combine(path, fileName + ".dialogue"), FileMode.Create);
+
+        formatter.Serialize(stream, data);
+        stream.Close();
+    }
+
     public static Dialogue SetDefaultDialogue(string dialoguePath)
     {
         BinaryFormatter formatter = new BinaryFormatter();
@@ -104,8 +119,8 @@ public static class SaveSystem
 
         else { return null; }
 
-        #endregion
     }
+    #endregion
 }
 
 
