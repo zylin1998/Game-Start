@@ -4,8 +4,7 @@ public class PassiveDialogueTrigger : MonoBehaviour
 {
     public DialogueTrigger _dialogueTrigger;
     public string _dialogueID;
-    public bool isUsed = false;
-
+    
     private void Start()
     {
         _dialogueTrigger.GetComponent<DialogueTrigger>();
@@ -13,11 +12,17 @@ public class PassiveDialogueTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider) 
     {
-        if (!isUsed) 
-        { 
-            _dialogueTrigger._dialogueID = _dialogueID;
-            _dialogueTrigger.TriggerDialogue();
-            isUsed = true;
+        int temp = System.Convert.ToInt32(_dialogueID);
+
+        if (FindObjectOfType<EventManager>() == null)
+        {
+            _dialogueTrigger.GetComponent<DialogueTrigger>()._dialogueID = _dialogueID;
+            _dialogueTrigger.GetComponent<DialogueTrigger>().TriggerDialogue();
+        }
+        else if (!FindObjectOfType<EventManager>().GetReadDialogue(temp))
+        {
+            _dialogueTrigger.GetComponent<DialogueTrigger>()._dialogueID = _dialogueID;
+            _dialogueTrigger.GetComponent<DialogueTrigger>().TriggerDialogue();
         }
     }
 }

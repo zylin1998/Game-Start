@@ -9,11 +9,13 @@ public class GalleryMenu : MonoBehaviour
     public LoadScenes _loadScenes;
     [Header("CG¹wÄý")]
     public GameObject _cGDisplay;
+
     public static CGData _cGData;
 
-    private Button[] _cGButton;
-    private CGSlot[] _cGSlots;
-    private Image _nowCG;
+    [SerializeField] private CGUsedData _usedData;
+    [SerializeField] private Button[] _cGButton;
+    [SerializeField] private CGSlot[] _cGSlots;
+    [SerializeField] private Image _nowCG;
     
 
     private void Start()
@@ -23,6 +25,8 @@ public class GalleryMenu : MonoBehaviour
         _nowCG = _cGDisplay.GetComponent<Image>();
 
         if(_cGData == null) { _cGData = Resources.Load<CGData>(System.IO.Path.Combine("CG", "CG Data")); }
+
+        _usedData = SaveSystem.LoadCGUsedData();
         
         Initialized();
     }
@@ -46,6 +50,14 @@ public class GalleryMenu : MonoBehaviour
 
     private void Initialized()
     {
+        if (_usedData != null)
+        {
+            for (int i = 0; i < _cGData.CGs.Length; i++)
+            {
+                _cGData.CGs[i].used = _usedData.usedCG[i];
+            }
+        }
+
         foreach (Button button in _cGButton)
         {
             button.enabled = false;

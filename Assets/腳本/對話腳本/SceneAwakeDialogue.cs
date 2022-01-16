@@ -15,8 +15,6 @@ public class SceneAwakeDialogue : MonoBehaviour
     {
         int temp = System.Convert.ToInt32(_dialogueID);
 
-        Debug.Log(temp);
-
         if(FindObjectOfType<EventManager>() == null) 
         {
             _dialogueTrigger.GetComponent<DialogueTrigger>()._dialogueID = _dialogueID;

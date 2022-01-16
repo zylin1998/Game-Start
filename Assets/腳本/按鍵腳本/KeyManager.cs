@@ -67,7 +67,7 @@ public class KeyManager : MonoBehaviour
 
     private void EventInput()
     {
-        if (Input.GetKey(_actions._actions[6].KeyCode)) { _eventState = true; }
+        if (Input.GetKeyDown(_actions._actions[6].KeyCode)) { _eventState = true; }
         else { _eventState = false; }
     }
 

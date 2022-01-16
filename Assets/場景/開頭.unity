@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028346, g: 0.22571373, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2833,6 +2833,8 @@ MonoBehaviour:
   _charas: []
   _log: []
   _imageMode: {fileID: 182212246}
+  _fileName: 
+  _ID: 0
 --- !u!114 &1077229510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3251,6 +3253,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1150510496}
     m_Modifications:
+    - target: {fileID: 105357120163613830, guid: e0a0a605c8f119244bced152c36e00eb, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -30
+      objectReference: {fileID: 0}
     - target: {fileID: 7260156457678025762, guid: e0a0a605c8f119244bced152c36e00eb, type: 3}
       propertyPath: m_Name
       value: "\u96E2\u958B\u904A\u6232"
@@ -4067,7 +4073,7 @@ GameObject:
   - component: {fileID: 1259751147}
   - component: {fileID: 1259751146}
   m_Layer: 5
-  m_Name: "\u80CC\u666F"
+  m_Name: "\u80CC\u666F\u5716"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5649,6 +5655,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _settingUI: {fileID: 1081410915}
   _isOpened: 0
+  _animator: {fileID: 1081410916}
 --- !u!224 &1633474942 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4143086760389992275, guid: ebe66ddcf62f628468a837b2d6f0c7da, type: 3}

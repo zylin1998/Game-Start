@@ -10,13 +10,14 @@ public class RoomDoorTriggrt : MonoBehaviour
     public Text _text;
     [Header("開門狀態")]
     public bool _isOpened = false;
+    public bool _canOpen = true;
 
     private void OnTriggerStay(Collider collider)
     {
         if (!_isOpened) { _hint.SetActive(true); }
         _text.text = "開門";
 
-        if (FindObjectOfType<KeyManager>()._eventState)
+        if (FindObjectOfType<KeyManager>()._eventState && _canOpen)
         {
             _isOpened = true;
             _animator.SetBool("isOpen", true);

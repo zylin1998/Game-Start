@@ -4,6 +4,12 @@ public class SettingManager : MonoBehaviour
 {
     public GameObject _settingUI;
     public bool _isOpened = false;
+    public Animator _animator;
+
+    private void Start()
+    {
+        _animator.GetComponent<Animator>();
+    }
 
     void Update()
     {
@@ -15,20 +21,22 @@ public class SettingManager : MonoBehaviour
         if (FindObjectOfType<KeyManager>()._escapeState && !_isOpened) 
         {
             _isOpened = true;
+            _settingUI.SetActive(_isOpened);
+            _animator.SetBool("isOpen", _isOpened);
         }
 
         else if(FindObjectOfType<KeyManager>()._escapeState && _isOpened)
         {
-            EndSetting();
+            _isOpened = false;
+            _animator.SetBool("isOpen", _isOpened);
+            Invoke("Setting", 0.5f);
         }
 
-        _settingUI.SetActive(_isOpened);
     }
 
-    public void EndSetting() 
+    public void Setting() 
     {
-        _isOpened = false;
-
+        _settingUI.SetActive(_isOpened);
         FindObjectOfType<KeyManager>()._actionsPause = false;
     }
 

@@ -28,7 +28,7 @@ public class SettingMenu : MonoBehaviour
     public void BackToTitle() 
     {
         _animator.SetBool("isOpen", false);
-        Invoke("CloseSettingMenu", 0.30f);
+        Invoke("CloseSettingMenu", 0.5f);
     }
 
     public void BackToTitleScene()

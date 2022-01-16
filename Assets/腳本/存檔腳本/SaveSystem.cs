@@ -121,6 +121,45 @@ public static class SaveSystem
 
     }
     #endregion
+
+    #region 圖片使用資訊
+
+    public static void SaveCGUsedData(CGUsedData data)
+    {
+        string path = Path.Combine(Application.dataPath, "SaveData");
+
+        DirectoryInfo saveDir = new DirectoryInfo(path);
+
+        if (!saveDir.Exists) { saveDir.Create(); }
+
+        BinaryFormatter formatter = new BinaryFormatter();
+        FileStream stream = new FileStream(Path.Combine(path, "CGUsedSave.save"), FileMode.Create);
+
+        formatter.Serialize(stream, data);
+        stream.Close();
+    }
+
+    public static CGUsedData LoadCGUsedData()
+    {
+        string path = Path.Combine(Application.dataPath, "SaveData", "CGUsedSave.save");
+        if (File.Exists(path))
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream stream = new FileStream(path, FileMode.Open);
+
+            CGUsedData data = formatter.Deserialize(stream) as CGUsedData;
+            stream.Close();
+
+            return data;
+        }
+        else
+        {
+            //Debug.LogError("File not found in " + path);
+            return null;
+        }
+    }
+
+    #endregion
 }
 
 

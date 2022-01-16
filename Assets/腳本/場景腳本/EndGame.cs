@@ -7,6 +7,7 @@ public class EndGame : MonoBehaviour
 
     public GameObject _endPage;
     public bool _isEnd = false;
+    public bool _isPress = false;
 
     private void Start()
     {
@@ -21,7 +22,7 @@ public class EndGame : MonoBehaviour
     {
         if (!FindObjectOfType<DialogueManager>()._dialogueMode) { _endEvent.Invoke(); }
 
-        if(_isEnd) { CheckKeyPress(); }
+        if(_isEnd && !_isPress) { CheckKeyPress(); }
     }
 
     public void EndPage() 
@@ -32,7 +33,10 @@ public class EndGame : MonoBehaviour
 
     private void CheckKeyPress() 
     {
-        if (Input.anyKey) { DelayTitleScene(); }
+        if (Input.anyKey) {
+            _isPress = true;
+            DelayTitleScene();
+        }
     }
 
     public void DelayTitleScene()

@@ -10,6 +10,8 @@ public class DialogueBoxController : MonoBehaviour
 
     public static CGData _cGData;
 
+    [SerializeField] private CGUsedData _usedData;
+
     private void Awake()
     {
         _animator.GetComponent<Animator>();
@@ -17,6 +19,8 @@ public class DialogueBoxController : MonoBehaviour
         _charaSprite.SetActive(false);
 
         if (_cGData == null) { _cGData = (CGData)Resources.Load(System.IO.Path.Combine("CG", "CG Data"), typeof(CGData)); }
+
+        _usedData = new CGUsedData(_cGData);
     }
 
     public void DialogueState(bool active)
@@ -35,6 +39,13 @@ public class DialogueBoxController : MonoBehaviour
         image.sprite = _cGData.CGs[sentence.ImageID].sprite;
         image.color = new Vector4(1, 1, 1, 1);
 
+        if (!_cGData.CGs[sentence.ImageID].used) 
+        {
+            _cGData.CGs[sentence.ImageID].used = true;
+            _usedData.SetUsedCG(sentence.ImageID);
+            SaveSystem.SaveCGUsedData(_usedData);
+        }
+
         _charaSprite.SetActive(false);
     }
 
@@ -44,6 +55,13 @@ public class DialogueBoxController : MonoBehaviour
 
         image.sprite = _cGData.CGs[sentence.ImageID].sprite;
         image.color = new Vector4(1, 1, 1, 1);
+
+        if (!_cGData.CGs[sentence.ImageID].used)
+        {
+            _cGData.CGs[sentence.ImageID].used = true;
+            _usedData.SetUsedCG(sentence.ImageID);
+            SaveSystem.SaveCGUsedData(_usedData);
+        }
 
         _charaSprite.SetActive(true);
     }
