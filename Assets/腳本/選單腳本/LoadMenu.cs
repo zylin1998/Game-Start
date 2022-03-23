@@ -25,7 +25,7 @@ public class LoadMenu : MonoBehaviour
         else 
         {
             Debug.Log(fileName + " is loaded.");
-            _gameSave.FoundSave(fileName, gameSaveData.initialScene, gameSaveData.isDialogueRead, gameSaveData.charaPosi, gameSaveData.jewelry, gameSaveData.letter);
+            _gameSave.FoundSave(fileName, gameSaveData.initialScene, gameSaveData.isDialogueRead, gameSaveData.charaPosi, gameSaveData.charaRotate, gameSaveData.jewelry, gameSaveData.letter);
         }
 
         _targetScene._sceneName = _gameSave.initialScene;

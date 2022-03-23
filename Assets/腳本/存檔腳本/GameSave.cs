@@ -4,38 +4,29 @@ using UnityEngine;
 public class GameSaveData 
 {
     public string initialScene;
-
     public float[] charaPosi;
-
+    public float[] charaRotate;
     public bool[] isDialogueRead;
-
     public bool[] jewelry;
-
     public bool[] letter;
 
     public GameSaveData()
     {
         initialScene = "¶}ÀY";
-
         charaPosi = new float[3];
-
+        charaRotate = new float[3];
         isDialogueRead = new bool[12];
-
         jewelry = new bool[3];
-
         letter = new bool[5];
     }
 
-    public GameSaveData(string initialScene, bool[] isDialogueRead,float[] charaPosi, bool[] jewelry, bool[] letter)
+    public GameSaveData(string initialScene, bool[] isDialogueRead,float[] charaPosi, float[] charaRotate, bool[] jewelry, bool[] letter)
     {
         this.initialScene = initialScene;
-
         this.charaPosi = charaPosi;
-
+        this.charaRotate = charaRotate;
         this.isDialogueRead = isDialogueRead;
-
         this.jewelry = jewelry;
-
         this.letter = letter;
     }
 }
@@ -44,13 +35,10 @@ public class GameSaveData
 public class GameSave : ScriptableObject
 {
     public string loadFile, initialScene;
-
     public float[] charaPosi;
-
+    public float[] charaRotate;
     public bool[] isDialogueRead;
-
     public bool[] jewelry;
-    
     public bool[] letter;
     
     public GameSave() 
@@ -63,25 +51,25 @@ public class GameSave : ScriptableObject
         charaPosi[1] = 0;
         charaPosi[2] = 0;
 
+        charaRotate = new float[3];
+
+        charaRotate[0] = 0;
+        charaRotate[1] = 0;
+        charaRotate[2] = 0;
+
         isDialogueRead = new bool[12];
-
         jewelry = new bool[3];
-
         letter = new bool[5];
     }
 
-    public GameSave(string loadFile,string initialScene, bool[] isDialogueRead, float[] charaPosi, bool[] jewelry, bool[] letter)
+    public GameSave(string loadFile,string initialScene, bool[] isDialogueRead, float[] charaPosi, float[] charaRotate, bool[] jewelry, bool[] letter)
     {
         this.loadFile = loadFile;
-
         this.initialScene = initialScene;
-
         this.charaPosi = charaPosi;
-
+        this.charaRotate = charaRotate;
         this.isDialogueRead = isDialogueRead;
-
         this.jewelry = jewelry;
-
         this.letter = letter;
     }
 
@@ -96,25 +84,25 @@ public class GameSave : ScriptableObject
         charaPosi[1] = 0.5f;
         charaPosi[2] = -16f;
 
+        charaRotate = new float[3];
+
+        charaRotate[0] = 0;
+        charaRotate[1] = 0;
+        charaRotate[2] = 0;
+
         isDialogueRead = new bool[12];
-
         jewelry = new bool[3];
-
         letter = new bool[5];
     }
 
-    public void FoundSave(string loadFile, string initialScene, bool[] isDialogueRead, float[] charaPosi, bool[] jewelry, bool[] letter)
+    public void FoundSave(string loadFile, string initialScene, bool[] isDialogueRead, float[] charaPosi, float[] charaRotate, bool[] jewelry, bool[] letter)
     {
         this.loadFile = loadFile;
-
         this.initialScene = initialScene;
-
         this.charaPosi = charaPosi;
-
+        this.charaRotate = charaRotate;
         this.isDialogueRead = isDialogueRead;
-
         this.jewelry = jewelry;
-
         this.letter = letter;
     }
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class DialogueManager : MonoBehaviour
     public bool _autoMode = false;
     public bool _skipMode = false;
     public bool _dialogueMode = false;
+    public UnityEvent _dialogueStartEvent;
+    public UnityEvent _dialogueEndEvent;
 
     private int _isSpeakChara;
     [Header("對話資料輸出")]
@@ -51,14 +54,14 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(string ID) 
     {
-        Cursor.lockState = CursorLockMode.Confined;
+        _dialogueStartEvent.Invoke();
 
         _fileName = "Dialogue" + ID;
         _ID = System.Convert.ToInt32(ID);
 
         GetFileName(_fileName);
 
-        _dialogueMode = true;
+        DialogueMode = true;
         FindObjectOfType<DialogueBoxController>().DialogueState(true);
 
         _charas.Clear();
@@ -186,7 +189,7 @@ public class DialogueManager : MonoBehaviour
 
     public void EndDialogue() 
     {
-        _dialogueMode = false;
+        DialogueMode = false ;
 
         _skipMode = false;
 
@@ -194,19 +197,27 @@ public class DialogueManager : MonoBehaviour
 
         if (FindObjectOfType<EventManager>() != null) 
         {
-            FindObjectOfType<EventManager>().SetReadDialogue(_ID); 
+            FindObjectOfType<EventManager>().SetReadDialogue(_ID);
+            FindObjectOfType<EventManager>().SaveEvent();
         }
 
         DialogueData dialogueData = new DialogueData(_dialogue.charas, _dialogue.sentences);
 
         SaveSystem.SaveDialogueData(_fileName, dialogueData);
+
+        _dialogueEndEvent.Invoke();
     }
 
     #endregion
 
     #region 回傳資訊
 
-    public bool GetDialogueMode() { return _dialogueMode; }
+    public bool DialogueMode
+    {
+        get { return _dialogueMode; }
+
+        set { _dialogueMode = value; }
+    }
 
     public int GetIsSpeakChara() { return _isSpeakChara - 1; }
 

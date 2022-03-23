@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class InventoryUI : MonoBehaviour
 {
@@ -15,58 +16,71 @@ public class InventoryUI : MonoBehaviour
     public Text _jewelryDetail;
     public Text _letterDetail;
 
+    [Header("Ä²µo¨Æ¥ó")]
+    public UnityEvent inventoryEvent;
+
     Inventory _inventory;
 
-    private InventorySlot[] _ballSlots;
-    private SlotWithName[] _letterSlots;
+    private JewelrySlot[] _jewelrySlots;
+    private LetterSlot[] _letterSlots;
 
     private void Awake()
     {
         _inventory = Inventory.instance;
         _inventory.OnItemChangedCallback += UpdateUI;
 
-        _ballSlots = _ballParent.GetComponentsInChildren<InventorySlot>();
-        _letterSlots = _letterParent.GetComponentsInChildren<SlotWithName>();
-    }
-
-    private void Update()
-    {
-        if (FindObjectOfType<KeyManager>()._inventoryState) {
-            _inventoryUI.SetActive(!_inventoryUI.activeSelf);
-        }
+        _jewelrySlots = _ballParent.GetComponentsInChildren<JewelrySlot>();
+        _letterSlots = _letterParent.GetComponentsInChildren<LetterSlot>();
     }
 
     void UpdateUI()
     {
-        foreach(InventorySlot slot in _ballSlots)
+        foreach(Item item in _inventory._itemList)
         {
-            foreach(Item item in _inventory._ballList)
-                if(item._name.Equals(slot._slotFor)) 
-                { 
-                    slot.AddItem(item);
-                    slot.CheckSlot();
-                }
-        }
+            if(item._category == Category.jewelry) { AddJewelry(item); continue; }
 
-        foreach (SlotWithName slot in _letterSlots)
-        {
-            foreach (Item item in _inventory._letterList)
-                if (item._name.Equals(slot._slotFor))
-                {
-                    slot.AddItem(item);
-                    slot.CheckSlot();
-                }
+            if(item._category == Category.letter) { AddLetter(item); continue; }
         }
     }
 
-    public void DisplayJewel(InventorySlot inventorySlot)
+    public void AddJewelry(Item item) 
     {
-        _jewelryDetail.text = inventorySlot._item._detail;
+        if(!(item as Jewelry)) { return; }
+
+        Jewelry jewelry = item as Jewelry;
+
+        foreach (JewelrySlot slot in _jewelrySlots) 
+        { 
+            if(jewelry.jewelryColor != slot.jewelryColor) { continue; }
+
+            slot.AddItem(item);
+            slot.CheckSlot();
+        }
     }
 
-    public void DisplayLetter(SlotWithName inventorySlot)
+    public void AddLetter(Item item)
     {
-        _letterDetail.text = inventorySlot._item._detail;
+        if (!(item as Letter)) { return; }
+
+        Letter letter = item as Letter;
+
+        foreach (LetterSlot slot in _letterSlots)
+        {
+            if (letter._id != slot._id) { continue; }
+
+            slot.AddItem(item);
+            slot.CheckSlot();
+        }
+    }
+
+    public void DisplayJewel(JewelrySlot slot)
+    {
+        _jewelryDetail.text = slot._item._detail;
+    }
+
+    public void DisplayLetter(LetterSlot slot)
+    {
+        _letterDetail.text = slot._item._detail;
     }
 
     public void TurnLeftPage() 

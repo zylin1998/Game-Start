@@ -74,7 +74,7 @@ public class SystemDataCollect
 
 public class DataCollect : MonoBehaviour
 {
-    //[Header("設定檔")]
+    [Header("設定檔")]
     public static ScreenSetting _screenSetting;
     public static TextSetting _textSetting;
     public static VolumeSetting _volumeSetting;

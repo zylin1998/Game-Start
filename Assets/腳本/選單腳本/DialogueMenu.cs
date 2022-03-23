@@ -25,18 +25,20 @@ public class DialogueMenu : MonoBehaviour
     public void AutoButton() 
     {
         _autoState = !_autoState;
-        FindObjectOfType<DialogueManager>().Auto(); 
+        FindObjectOfType<DialogueManager>().Auto();
+        MenuButton();
     }
 
     public void SkipMenu() 
     {
         _skipState = !_skipState;
         FindObjectOfType<DialogueManager>().Skip();
+        MenuButton();
     }
 
     public void LogButton() 
     {
-        //Debug.Log("Log is not ready."); 
         FindObjectOfType<DialogueManager>().SetLogText();
+        MenuButton();
     }
 }

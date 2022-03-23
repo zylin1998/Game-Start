@@ -5,6 +5,7 @@ public class InventorySlot : MonoBehaviour
 {
     public Button _slotButton;
     public string _slotFor = "everything";
+    public Category category = Category.other;
     public Image _icon;
     public Item _item;
 
@@ -27,8 +28,6 @@ public class InventorySlot : MonoBehaviour
 
     public void CheckSlot()
     {
-        Debug.Log("Slot item (" + _item + ") is Checked.");
-
         if(_item == null) { _slotButton.enabled = false; }
 
         else { _slotButton.enabled = true; }

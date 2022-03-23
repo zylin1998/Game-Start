@@ -11,33 +11,16 @@ public class SettingManager : MonoBehaviour
         _animator.GetComponent<Animator>();
     }
 
-    void Update()
+    public void SetSettingUI()
     {
-        SetSettingUI();
-    }
+        _isOpened = !_isOpened;
 
-    private void SetSettingUI()
-    {
-        if (FindObjectOfType<KeyManager>()._escapeState && !_isOpened) 
-        {
-            _isOpened = true;
-            _settingUI.SetActive(_isOpened);
-            _animator.SetBool("isOpen", _isOpened);
-        }
-
-        else if(FindObjectOfType<KeyManager>()._escapeState && _isOpened)
-        {
-            _isOpened = false;
-            _animator.SetBool("isOpen", _isOpened);
-            Invoke("Setting", 0.5f);
-        }
-
+        Setting();
     }
 
     public void Setting() 
     {
         _settingUI.SetActive(_isOpened);
-        FindObjectOfType<KeyManager>()._actionsPause = false;
+        _animator.SetBool("isOpen", _isOpened);
     }
-
 }

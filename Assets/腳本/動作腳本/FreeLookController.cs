@@ -17,7 +17,7 @@ public class FreeLookController : MonoBehaviour
 
     private void Camera_State()
     {
-        if (FindObjectOfType<DialogueManager>().GetDialogueMode() || FindObjectOfType<InventoryUI>()._inventoryUI.activeSelf || FindObjectOfType<SettingManager>()._isOpened) { _cinemachineFreeLook.enabled = false; }
+        if(FindObjectOfType<CursorStates>().IsLocked) { _cinemachineFreeLook.enabled = false; }
 
         else { _cinemachineFreeLook.enabled = true; }
     }

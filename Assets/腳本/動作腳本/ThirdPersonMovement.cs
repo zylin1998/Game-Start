@@ -28,25 +28,22 @@ public class ThirdPersonMovement : MonoBehaviour
     private void Start()
     {
         _anim = this.GetComponent<Animator>();
-        Cusor_State();
     }
+
     void Update()
     {
         Escape_Check();
         Inventory_Check();
-        Cusor_State();
         Ground_Check();
         Move_Check();
     }
 
     private void Move_Check() 
     {
-        if (!FindObjectOfType<DialogueManager>().GetDialogueMode() && !FindObjectOfType<InventoryUI>()._inventoryUI.activeSelf && !FindObjectOfType<SettingManager>()._isOpened)
-        {
-            Move();
-            Jump();
-            _cusorLockState = true;
-        }
+        if(FindObjectOfType<CursorStates>().IsLocked) { return; }
+
+        Move();
+        Jump();
     }
 
     private void Move()
@@ -118,7 +115,6 @@ public class ThirdPersonMovement : MonoBehaviour
     {
         if (FindObjectOfType<KeyManager>()._eventState) {
             _anim.SetFloat("Blend", 0f);
-            _cusorLockState = false;
         }
     }
 
@@ -126,7 +122,6 @@ public class ThirdPersonMovement : MonoBehaviour
     {
         if (FindObjectOfType<InventoryUI>()._inventoryUI.activeSelf) 
         { 
-            _cusorLockState = false;
             _anim.SetFloat("Blend", 0f);
         }
     }
@@ -135,15 +130,7 @@ public class ThirdPersonMovement : MonoBehaviour
     {
         if (FindObjectOfType<SettingManager>()._isOpened)
         {
-            _cusorLockState = false;
             _anim.SetFloat("Blend", 0f);
         }
-    }
-
-    private void Cusor_State()
-    {
-        if(_cusorLockState) { Cursor.lockState = CursorLockMode.Locked; }
-
-        else { Cursor.lockState = CursorLockMode.Confined; }
     }
 }

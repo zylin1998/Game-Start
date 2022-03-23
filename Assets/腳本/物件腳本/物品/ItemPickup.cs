@@ -26,13 +26,15 @@ public class ItemPickup : MonoBehaviour
             if (_wasPickedUp)
             {
                 _hint.SetActive(false);
-                GameObject.Find("事件管理").GetComponent<EventManager>().ItemPickUp(_target);
+                GameObject.Find("事件管理").GetComponent<EventManager>().ItemPickUp(_item);
 
                 if (_hasDialogue) 
                 {
                     FindObjectOfType<DialogueTrigger>()._dialogueID = _dialogueID;
                     FindObjectOfType<DialogueTrigger>().TriggerDialogue();
                 }
+
+                Destroy(_target);
             }
         }
 

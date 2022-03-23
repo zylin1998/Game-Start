@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 5564123997786365212}
   - component: {fileID: 8590523574208059056}
   - component: {fileID: 7739274844394712506}
-  - component: {fileID: 428663208}
+  - component: {fileID: 4895621260950100104}
   - component: {fileID: -6365489471907244845}
   m_Layer: 5
   m_Name: InventorySlot
@@ -153,7 +153,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &428663208
+--- !u!114 &4895621260950100104
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,13 +162,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 8234938402785802889}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26cd4acb41f698446802574f3cf425af, type: 3}
+  m_Script: {fileID: 11500000, guid: 9cc76fe961d2e004db987550efb4eeb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _slotButton: {fileID: -6365489471907244845}
   _slotFor: everything
+  category: 1
   _icon: {fileID: 8537688362974495224}
   _item: {fileID: 0}
+  jewelryColor: 3
 --- !u!114 &-6365489471907244845
 MonoBehaviour:
   m_ObjectHideFlags: 0

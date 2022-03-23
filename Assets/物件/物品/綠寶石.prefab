@@ -61,7 +61,7 @@ MonoBehaviour:
   _hint: {fileID: 0}
   _text: {fileID: 0}
   _target: {fileID: 7658559755820595338}
-  _item: {fileID: 11400000, guid: 00229f0202f09f34cb69bd75fcbd9f28, type: 2}
+  _item: {fileID: 11400000, guid: c4183176b2340314f9f77f23ab5ad429, type: 2}
   _hasDialogue: 0
   _dialogueID: 
 --- !u!1 &7658559755820595338

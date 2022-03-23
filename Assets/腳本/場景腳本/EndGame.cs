@@ -9,11 +9,15 @@ public class EndGame : MonoBehaviour
     public bool _isEnd = false;
     public bool _isPress = false;
 
+    public static GameSave _gameSave;
+
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Confined;
 
-        if(_endEvent == null) { _endEvent = new UnityEvent(); }
+        if (_gameSave == null) { _gameSave = Resources.Load<GameSave>(System.IO.Path.Combine("設定檔", "GameSave")); }
+
+        if (_endEvent == null) { _endEvent = new UnityEvent(); }
 
         _endEvent.AddListener(EndPage);
     }
@@ -33,8 +37,12 @@ public class EndGame : MonoBehaviour
 
     private void CheckKeyPress() 
     {
-        if (Input.anyKey) {
+        if (Input.anyKey) 
+        {
             _isPress = true;
+
+            RefreshSave();
+
             DelayTitleScene();
         }
     }
@@ -49,5 +57,12 @@ public class EndGame : MonoBehaviour
         LoadScenes._targetScene._sceneName = "開始畫面";
         FindObjectOfType<LoadScenes>().LoadNewScene("過場畫面");
         FindObjectOfType<LoadScenes>()._asyncload.allowSceneActivation = true;
+    }
+
+    private void RefreshSave() 
+    {
+        GameSaveData gameSaveData = new GameSaveData();
+
+        SaveSystem.SaveGameSaveData(_gameSave.loadFile, gameSaveData);
     }
 }

@@ -16,7 +16,7 @@ public class FirstSceneDialogue : MonoBehaviour
 
     private void Update()
     {
-        if (!_endCheck && FindObjectOfType<DialogueManager>().GetDialogueMode() == false) { DelayChangeScene(); }
+        if (!_endCheck && FindObjectOfType<DialogueManager>().DialogueMode == false) { DelayChangeScene(); }
     }
 
     public void DelayDisplayDialogue()
